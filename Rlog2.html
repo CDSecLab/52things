@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rlog2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="what-did-you-learn">What did you learn？</h1>
+<blockquote>
+<p>计算复杂度与计算复杂类别</p>
+</blockquote>
+<h2 id="number-4-the-complexity-class-p"><a href="https://bristolcrypto.blogspot.com/2014/10/52-things-number-4-complexity-class-p.html">Number 4: The Complexity Class P</a></h2>
+<blockquote>
+<p>On the topic of Theoretical Computer Science
+参考<a href="http://www.amazon.co.uk/Introduction-Theory-Computation-Michael-Sipser/dp/0619217642"><em>Introduction to the Theory of Computation</em> by Michael Sipser</a></p>
+</blockquote>
+<h3 id="1-complexity-and-big-o-notation">1. Complexity and Big O Notation</h3>
+<p>复杂度的概念是为了更直观的判断一个任务有多困难，我们当然也可以通过计算机解决这个问题的时间来判断，但是根据上一章的内容，这种方法是不合理的，因为不同硬件的计算能力不同。所以我们需要一个更加抽象的方法，可以忽略掉具体细节。具体方法为限制所需的<strong>操作数</strong>，也叫（时间）复杂度理论（(time) complexity theory）
+注意，操作数往往与任务的输入密切相关，会随着操作数的不同而不同，甚至两个输入的长度一样，操作数也可能会完全不同。</p>
+<blockquote>
+<p>分解256和323，都是9 bit，但是前者远快于后者，256=2^8，323=17*19</p>
+</blockquote>
+<p>因此，我们通常选择<strong>最坏情况分析</strong>，记录特定长度的所有输入的最长运行时间，也就是需要一个<strong>上界</strong>，这就是大 O 表示法（Big O notation）。随着输入长度$n$的增加，我们可以忽略所有非主项以及常数系数。</p>
+<blockquote>
+<p>$\mathcal{O}(t(n))=\mathcal{O}(6n^3-n^2+1)=\mathcal{O}(n^3)$</p>
+</blockquote>
+<p>标准定义：
+<img src="assets/Rlog2/image.png" alt="Alt text"></p>
+<h3 id="2-turing-machines">2. Turing Machines</h3>
+<p>现在我们给出执行计算中最常用的模型————Turing Machines。</p>
+<ul>
+<li><strong>alphabet</strong>: 非空有限集合</li>
+<li><strong>string</strong>: alphabet 中元素的有限序列</li>
+<li><strong>language</strong>: string 的集合</li>
+<li><strong>tape</strong>: 无限长的带子，每个位置要么为空，要么包含一个alphabet的元素
+<ul>
+<li>最开始时，tape最左边$n$个位置为输入，非空（因此也可以确定输入停止位置），其余为空</li>
+</ul>
+</li>
+<li><strong>tape head</strong>: 可以沿着tape向左或向右移动，读取或写入tape上的元素
+<ul>
+<li>最开始在tape最左端并读取第一个符号</li>
+</ul>
+</li>
+<li><strong>transition function</strong>: 根据读取的符号和当前状态，决定下一步的动作，返回：
+<ul>
+<li>一个新的状态</li>
+<li>另一个用于<strong>写入</strong>其所在方块的符号（尽管该符号可能与已写入的符号相同）</li>
+<li>一个新的移动方向：left or right</li>
+</ul>
+</li>
+<li><strong>accept state</strong> or <strong>reject state</strong>: 最后的状态，决定输入是被接受还是被拒绝，这两种都被称为<strong>halting</strong>（停机）
+<ul>
+<li>可能会陷入无限循环，既不接受也不拒绝</li>
+</ul>
+</li>
+<li><strong>decide</strong>: 如果机器可以接受某个 language 的 string，并拒绝其它 string，就称机器可以决定这个 language ，这个 language 就被称为<strong>decidable</strong>（可判定的）
+<ul>
+<li>例如：一个表示整数的字符串是否属于表示素数的字符串语言</li>
+</ul>
+</li>
+<li><strong>Church-Turing thesis</strong>: 任何真实计算机可以做的事情，图灵机都可以做
+<ul>
+<li>也就是说，图灵机是计算的最终标准</li>
+</ul>
+</li>
+<li><strong>time complexity class $\mathrm{TIME}(t(n))$</strong>: 在$\mathcal{O}(t(n))$ 时间内，图灵机可判定的所有language的集合</li>
+</ul>
+<p>这样我们就将<strong>计算问题</strong>转化为有关<strong>语言成员资格</strong>的问题（即，输入字符串是某种语言的成员吗?</p>
+<blockquote>
+<p>例如：一个表示整数的字符串是否属于表示素数的字符串语言</p>
+</blockquote>
+<h3 id="3-the-complexity-class-p">3. The Complexity Class P</h3>
+<p><strong>P</strong> 是图灵机可以在<strong>多项式时间</strong>内解决的所有问题的集合，也就是说，如果一个问题的解决时间复杂度是$\mathcal{O}(n^k), k&gt;0$，那么这个问题就属于P类问题。P类问题是计算机科学中最重要的问题之一，因为它们是可以在多项式时间内解决的问题，这意味着它们是可以在实际中解决的问题。</p>
+<blockquote>
+<p>$k$ 变得非常大时，问题当然也变得非常困难，但是依然是多项式时间，增长速度完全比不上$n$在指数位置上时（e.g. $2^n$）。</p>
+</blockquote>
+<p>以素数问题为例，判断一个数是否是素数，可以通过试除法，时间复杂度是$\mathcal{O}(\sqrt{n})$，因此是P类问题。
+再以路径问题（判断有向图中AB两点是否存在路劲）为例，可以通过深度优先搜索，时间复杂度是$\mathcal{O}(n^2)$，因此是P类问题。</p>
+<h2 id="number-5-what-is-meant-by-the-complexity-class-np"><a href="https://bristolcrypto.blogspot.com/2014/11/52-things-number-5-what-is-meant-by.html">Number 5: What is meant by the complexity class NP?</a></h2>
+<ul>
+<li><strong>P</strong> is the class of languages decidable in polynomial time by a deterministic Turing machine.</li>
+<li><strong><font color=red>NP</font></strong> <font color=red>is the class of languages decidable in polynomial time by a </font><strong><font color=red>nondeterministic</font></strong> <font color=red>Turing machine.</font></li>
+</ul>
+<h3 id="1-what-is-a-nondeterministic-turing-machine-ndtm">1. What is a Nondeterministic Turing Machine (NDTM)?</h3>
+<p>如果相同的输入，图灵机的转换函数（transition function）输出不同。问题就像一棵树，会衍生出很多不同的分支（答案），NDTM 会迅速计算所有的分支，如果其中一个分支可以被接受，那么这个输入就是可以接受的。</p>
+<blockquote>
+<p>这种情况下 transition function 更正确的叫法是 transition relation</p>
+</blockquote>
+<p>和上一章一样，这个定义从语言成员资格（language membership）概括到决策（decision），再到计算问题（computational problems）</p>
+<h3 id="2-some-examples-of-np-problems">2. Some Examples of NP problems</h3>
+<p>首先还是上一章的路径问题，假设一个有向图有$n$个节点，我们想知道是否存在一条从 A 到 B 的路径。 NDTM 可以解决这个问题，它的工作原理基本上是  在每次有交叉点时通过分支来尝试每条路线。如果有某个分支可以到达B，那么这个问题就终止于accept state，反之为reject state。在 $n$ 步内（即遍历 $n$ 条边之后）未到达 B 的分支都会终止于 reject state。所以每条路径至多包含$n - 1$个节点，任何有效的路径都会被检测到，因此本机可以正确地判断该路径是否存在。。</p>
+<p>另一个经典例子是<strong>满足性问题（satisfiability problem，SAT）</strong>：Given an expression in $n$ boolean variables, is there an assignment of the variables such that the expression evaluates to True?</p>
+<blockquote>
+<p>给定一个包含 n 个布尔变量的表达式，是否存在变量赋值使得该表达式的计算结果为真？</p>
+</blockquote>
+<p>例如，对于表达式$(A \wedge B) \vee (A \wedge \neg B)$就是可以满足的，只需要$A = B = True$就可以了。</p>
+<blockquote>
+<p>在标准形式中， SAT 是一个决策问题，只需要判断存不存在就行，至于答案是哪个不需要关心</p>
+</blockquote>
+<h3 id="3-ok-so-there-are-problems-in-np-what-is-interesting-about-it">3. Ok, so there are problems in NP. What is interesting about it?</h3>
+<p>首先我们可以确定$P \subseteq NP$，因为 DTM 可以看作是一个 NDTM，只是碰巧永远不会分支。所以，真正的问题是<strong>哪些事情可以在 NP 中做而在 P 中不能做？</strong></p>
+<blockquote>
+<p>$P \overset{?}{=} NP$，是一个<a href="https://www.claymath.org/">千年问题</a>，也称为百万悬赏问题</p>
+</blockquote>
+<p>我们确实发现了一些已知存在于 NP 中但不知道是否存在于 P 中的问题，也许未来的研究会表明这些问题也存在于 P 中。</p>
+<p><strong><a href="https://b23.tv/bnB8rdS">B站相关解说</a></strong></p>
+<blockquote>
+<p>里面很有趣的一句话：如果能快速地检验答案，是否代表也有快速方法破解问题呢？</p>
+</blockquote>
+<p>许多有趣的密码系统（特别是在公钥密码中）都是基于计算问题“困难”的假设而安全的，这通常意味着“至少与 NP 中的任何问题一样困难”。</p>
+<p>有个很有趣的定理叫做<a href="https://en.wikipedia.org/wiki/Cook%E2%80%93Levin_theorem">Cook-Levin theorem</a>，它表明 SAT 是 NP 完全问题(<strong>NP-complete</strong>)的第一个例子，也就是说，任何 NP 问题都可以在多项式时间内归约到 SAT。这意味着，如果我们可以在多项式时间内解决 SAT，那么我们就可以在多项式时间内解决 NP 中的任何问题。</p>
+<h2 id="number-6-how-can-we-interpret-np-as-the-set-of-theorems-whose-proofs-can-be-checked-in-polynomial-time"><a href="https://bristolcrypto.blogspot.com/2014/11/52-things-number-6-how-can-we-interpret.html">Number 6: How can we interpret NP as the set of theorems whose proofs can be checked in polynomial time?</a></h2>
+<p>直接上结论：</p>
+<p>$\mathrm{NP}$ is the class of languages that have <strong>polynomial time verifiers</strong>.</p>
+<blockquote>
+<p>假设一个元素$x\in L$，其中$L$是一个 NP 语言，我们有一个证明器（prover）$P$，当给定$x$的时候，可以输出一个证据（witness）$w$，从$x$得到$w$的可以是指数复杂度，但如果将$x,w$给验证器（verifiers）$V$，$V$可以在多项式时间内判断$x \overset{?}{\in} L$。</p>
+</blockquote>
+<p>这个结论证明其实很直观，NDTM在上章被比作一棵树，验证就是从这棵树最顶端的叶子（$w$）往下找根($x$)的过程，这个过程非常简单。
+<a href="http://en.wikipedia.org/wiki/NP_(complexity)#Equivalence_of_definitions">正式证明</a></p>
+<blockquote>
+<p>$P \overset{?}{=} NP$也可以理解为  <strong>从叶子找根</strong>  和  <strong>从根找叶子</strong>  这两个过程是不是可以一样简单？？毕竟我们没有任何证据证明<strong>没有</strong>简单聪明的办法从根找到叶子（解题）</p>
+</blockquote>
+<p>我们可以非常简单的想到：这个过程不就是<strong>密码体制</strong>的构建原理吗？$V$ 是解密算法，$w$ 是密钥，$x$ 是密文，$L$ 是明文。</p>
+<blockquote>
+<p>$P$可以理解为尝试破解密码的人？或者密钥生成算法？
+注意不是所有 NP 问题都适合构建密码体制，因为 NP 问题是基于最差情况复杂度研究的，并不代表它的难度是均匀固定的。而密码学追求稳定的难度。</p>
+</blockquote>
+<p>因此，P vs NP 问题在密码学中可以理解为：<strong>是否存在一个简单的方法可以破解密码？</strong>。一旦这个问题被解决，密码学简单讲就是会崩溃~</p>
+<blockquote>
+<p>补充：整数分解问题并没有证据证明其是不是 NP-complete 问题，也没有证明它是不是 P 问题。</p>
+</blockquote>
+<h2 id="number-7-how-does-randomness-help-in-computation-and-what-is-the-class-bpp"><a href="https://bristolcrypto.blogspot.com/2014/11/52-things-number-7-how-does-randomness.html">Number 7: How does randomness help in computation, and what is the class BPP?</a></h2>
+<ul>
+<li><strong>P</strong> is the class of languages decidable in polynomial time by a deterministic Turing machine.</li>
+<li><strong>NP</strong> is the class of languages decidable in polynomial time by a <strong>nondeterministic</strong> Turing machine.</li>
+<li><strong><font color=red>BPP</font></strong> <font color=red>is the class of languages that are recognised by a </font><strong><font color=red>probabilistic polynomial time Turing machine</font></strong> <font color=red>with an error probability of $\frac{1}{3}$</font></li>
+</ul>
+<h3 id="1-what-is-the-probabilistic-turing-machine-ptm">1. What is the Probabilistic Turing Machine (PTM)?</h3>
+<p>上上章的NDTM可以看作是一个可以同时尝试所有可能性的“上帝”，而<a href="https://en.wikipedia.org/wiki/Probabilistic_Turing_machine">Probabilistic Turing Machine</a>则更像一个只能尝试部分可能性的“凡人 ”。只能随机选择部分分支，所以即使面对同一个输入，既可能accept，也可能reject，甚至可能永远不停。这种图灵机衍生出了<strong>RP</strong>，<strong>ZPP</strong>等，以及本章的<strong>BPP</strong>。</p>
+<h3 id="2-what-is-the-complexity-class-bpp">2. What is the complexity class BPP?</h3>
+<p><strong>BPP (Bounded-Error probabilistic polynomial time)</strong> 包含PTM可以在多项式时间内解决的决策问题，但是<strong>错误率有$\frac{1}{3}$</strong>。</p>
+<blockquote>
+<p>根据<strong>放大引理</strong>(amplification lemma)，错误概率可以限制为 $0$ 到 $\frac{1}{2}$ 之间的任何值（别问，问就是看不懂证明）</p>
+</blockquote>
+<p><strong>BPP包含着P！</strong>，这个很好理解，当只有一个分支的时候，PTM会以 1 的概率“随机”选到这个分支，所以P是BPP的子集。</p>
+<blockquote>
+<p>同样，$P \overset{?}{=} BPP$</p>
+</blockquote>
+<h3 id="3-an-example-of-a-bpp-problem">3. An example of a BPP Problem</h3>
+<p>曾经最著名的 BPP 中已知但 P 中未知的问题就是判断一个数是不是素数，但是2002年一个确定的多项式算法（<a href="http://en.wikipedia.org/wiki/AKS_primality_test">AKS primality test</a>）证明了这个问题其实是 P 问题。</p>
+<p>另一个著名的 BPP 中已知但目前 P 中未知的问题是多项式恒等性检验（<a href="http://en.wikipedia.org/wiki/Schwartz%E2%80%93Zippel_lemma">polynomial identity testing</a>），即确定一个多项式是不是恒等于 0 多项式</p>
+<h2 id="number-8-how-does-interaction-help-in-computation-and-what-is-the-class-ip"><a href="https://bristolcrypto.blogspot.com/2014/12/52-things-number-8-how-does-interaction.html">Number 8: How does interaction help in computation, and what is the class IP?</a></h2>
+<h3 id="1-interactive-proof-systems">1. Interactive Proof Systems</h3>
+<p>首先介绍一下交互证明系统（Interactive Proof Systems），这是由Shafi Goldwasser、Silvio Micali和Charles Rackoff在1985年提出的。这也是<strong>零知识证明</strong>（Zero-knowledge proof）的基础。特点就是除了所证明<strong>断言</strong>（<strong>assertion</strong>）的有效性之外，什么也不透露。与经典证明系统不同的是，交互证明系统增加了两个元素：</p>
+<ul>
+<li><strong>randomisation</strong>：验证器（verifier）是概率性的，有小概率会出错</li>
+<li><strong>interaction</strong>：证明者（prover）和验证者（verifier）之间会交互，验证过程是一个动态的过程</li>
+</ul>
+<blockquote>
+<p>the set of languages of interactive proof systems is in a large complexity class <strong>IP</strong>.</p>
+</blockquote>
+<p>证明系统应该包含一下性质：</p>
+<ul>
+<li><strong>Efficiency</strong>：验证得快对吧，不然验个一百年？</li>
+<li><strong>Soundness</strong>：如果断言是假的，非法证明不能随便伪造</li>
+<li><strong>Completeness</strong>：如果断言是真的，一定存在合法证明</li>
+</ul>
+<h3 id="2-classical-proofs">2. Classical proofs</h3>
+<p>具体概念参考上面和<a href="https://en.wikipedia.org/wiki/Interactive_proof_system">这里</a>。</p>
+<p>主要补充一点：我们知道 NP 可以看作一个语言类（a class of languages），里面的成员都可以被快速验证（回忆叶子到根），即有一个<strong>证书</strong>（certificate），非成员则没有。所以 NP 正是一类经典证明语言。</p>
+<blockquote>
+<p>NP is exactly the class of languages of classical proofs.</p>
+</blockquote>
+<h3 id="3-interactive-proofs">3. Interactive Proofs</h3>
+<p>首先回答一个问题：<strong>为什么交互证明系统比经典证明系统（在某些方面）更强大？</strong></p>
+<p>通过举一个例子：<strong>图同构 与 图非同构</strong></p>
+<blockquote>
+<p>Graph Isomorphism and Graph Non-isomorphism.</p>
+</blockquote>
+<p>两个图$G,H$如果<a href="https://www.zhihu.com/question/326620873">同构</a>，说明$G$通过顶点的某种重排可以变为$H$。即以下language:
+$$ISO = { &lt;G,H&gt; | G,H \text{ are isomorphic graphs} }$$
+这个问题是一个 NP 问题，因为一旦知道重排指令，很容易就可以验证。</p>
+<p>同样的，根据图非同构问题，我们可以定义以下language：
+$$NOISO = { &lt;G,H&gt; | G,H \text{ are}\ \mathbf{not}\ \text{isomorphic graphs} }$$
+看似只是加了一个 not，但是验证突然变得很难了，至少用经典证明很难。因为我们没办法在短时间内尝试所有的可能性然后说这俩图确实不同构。那用交互证明怎么做呢？</p>
+<p>首先假设有两个图$G_0,G_1$，验证者（verifier）随机选取一个 bit $b \in {0,1}$和一个置换（permutation）$\pi$，将$\pi$作用于$G_b$后得到图$H$，证明者（prover）收到$H$后，发送一个比特$b'$给验证者。验证者当且仅当$b=b'$时接受。</p>
+<p>这个协议的背后逻辑是：如果$G_0,G_1$不是同构的，那么证明者可以识别$H$来自$G_0$还是$G_1$。如果$G_0,G_1$是同构的，那么证明者没有办法识别$H$来自$G_0$还是$G_1$。相反，如果$G_0,G_1$是同构的，那么证明者的行为就像是随机的，验证者接受的概率是$\frac{1}{2}$。</p>
+<p>至此，我们发现了交互证明系统的相比经典证明系统存在着不可替代性。
+紧接着我们给出 IPS 与 IP的正式定义：</p>
+<p><strong>Interactive proof system</strong>: <em>A pair of interactive machines</em> $(P,V)$ <em>is called an interactive proof system for a language $L$ if machine <strong>V</strong> is polynomial-time and the following conditions hold:</em></p>
+<ul>
+<li><strong>Completeness</strong>: For every $x \in L$
+$$Pr[&lt;P,V&gt;(x)=1]\geq \frac{2}{3}$$</li>
+<li><strong>Soundness</strong>: For every $x \notin L$
+$$Pr[&lt;P,V&gt;(x)=1]\leq \frac{1}{3}$$</li>
+</ul>
+<p><strong>The class IP</strong>: <em>The class <strong>IP</strong> consists of all languages having interactive proof systems.</em></p>
+<p>显然，<strong>IP 包含了 BPP</strong>，如果我们将消息的交换次数限制为1，那么我们就得到了 NP，所以<strong>IP 也包含了 NP</strong>。</p>
+<blockquote>
+<p>可以这么理解：NP 问题可以验证对吧，而且验证过程非常简单，多项式时间内就能完成对吧，而且只交互一个证据(witness)对吧。现在 IP 都不限制交互了，所以 NP 也就是 IP 的子集了。
+也可以这么理解：${(=1)}\subset { (\geq \frac{2}{3})}$</p>
+</blockquote>
+<p>1992年，Adi Shamir证明了<a href="http://dl.acm.org/citation.cfm?doid=146585.146609">IP = PSPACE</a>，这个证明是一个重要的里程碑，因为它表明了交互证明系统的强大性质。</p>
+<p>补充（看不懂没事）：请注意，在协议中，证明者有能力抛出<strong>私人硬币</strong>（private-coin）。如果允许 证明者 访问 验证者 的随机字符串，就会导致模型转变为与 带有<strong>公共币</strong>（public-coins）的交互证明 相关，复杂性类 <a href="http://en.wikipedia.org/wiki/Arthur%E2%80%93Merlin_protocol">AM</a> 与这个相关。</p>
+<blockquote>
+<p>If the prover is allowed to access to the verifier's random string leads to the model of interactive proofs with public-coins.</p>
+</blockquote>
+
+</body>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
+</html>

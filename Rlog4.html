@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rlog4.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="what-did-you-learn">What did you learn？</h1>
+<blockquote>
+<p>一些密码学算法的具体实现 Cryptographic Implementation Details</p>
+</blockquote>
+<h2 id="number-15-key-generation-encryption-and-decryption-algorithms-for-rsa-oaep-and-ecies"><a href="https://bristolcrypto.blogspot.com/2015/01/key-generation-encryption-and.html">Number 15: Key generation, encryption and decryption algorithms for RSA-OAEP and ECIES.</a></h2>
+<h3 id="1-rsa-oaep">1. RSA-OAEP</h3>
+<h4 id="11-rsa">1.1 RSA</h4>
+<p>略</p>
+<h4 id="12-oaep">1.2 OAEP</h4>
+<p>Optimal Asymmetric Encryption Padding
+它是与非对称加密（通常是 RSA）一起使用的填充方案。它可以给确定性加密方案带来一些随机性。当与 RSA 一起使用时，组合方案被证明是 IND-CCA 安全的。</p>
+<p>令</p>
+<ul>
+<li>$f$ 是一个 $k$ 比特的陷门单向置换（trapdoor one-way permutation）：$f:{0,1}^k \rightarrow {0,1}^k$</li>
+<li>$m$ 是一个 $n$ 比特的消息</li>
+<li>$G,H$ 是两个伪随机函数，其中 $G:{0,1}^s \rightarrow {0,1}^{n+t},H:{0,1}^{n+t} \rightarrow {0,1}^s,\ where\ k=n+t+s$</li>
+<li>$R$ 是一个 $s$ 比特的随机数: $R \overset{$}{\leftarrow} {0,1}^s$</li>
+</ul>
+<p><strong>Encryption:</strong>
+计算 $k$ 比特密文的过程如下：
+$$
+E(m) = f_{pk}({(m||0^t) \oplus G(R)} || {R \oplus H((m||0^t)\oplus G(R)) })
+$$</p>
+<p><strong>Decryption:</strong>
+通过陷门解密：
+$$
+D(c) = f_{sk}(c) = {(m||0^t) \oplus G(R)} || {R \oplus H((m||0^t)\oplus G(R)) }
+$$</p>
+<p>然后</p>
+<ol>
+<li>令前 $n+t$个比特为 $T:T=(m||0^t) \oplus G(R)$，剩下的 $s$ 比特为 $S:S=R \oplus H((m||0^t)\oplus G(R))$</li>
+<li>$R$ 可以根据 $R=S\oplus H(T)$ 计算出来</li>
+<li>接着计算 $m||0^t=T\oplus G(R)$</li>
+<li>可以通过 $n$ 位消息 $m$ 后面是否正好有 $t$ 个 0 来验证有效性。如果有效，则删除前 $t$ 位并输出 $m$。</li>
+</ol>
+<p>在实际应用中，我们分别用 RSA 加密和解密函数来代替 $f_{pk}$ 和 $f_{sk}$。</p>
+<h3 id="2-ecies">2. ECIES</h3>
+<p>Elliptic Curve Integrated Encryption Scheme</p>
+<blockquote>
+<p>是 ElGamal 加密方案在椭圆曲线上的一种变体</p>
+</blockquote>
+<h4 id="21-elliptic-curve">2.1 Elliptic Curve</h4>
+<p>定义在素数域 $F_q$，选择一个点 $P$ 并拥有素数阶 $n$
+略（看NO.12）</p>
+<h4 id="22-ecies">2.2 ECIES</h4>
+<p>ECIES 经常与一个对称加密方案和一个 MAC 方案一起使用。</p>
+<ul>
+<li>symmetric encryption scheme : $Enc_k(m)=c,Dec(c)=m$</li>
+<li>MAC scheme : $MAC_k(m)=t,Ver(t,m)=T/F$</li>
+<li>Key Derivation Function : $KDF(s_1,s_2)=(k_{enc},k_{MAC})$，其中 $s_1,s_2$ 是俩种子</li>
+</ul>
+<p><strong>Key Generation：</strong></p>
+<ol>
+<li>选择一个随机整数 $d \in [1,n-1]$</li>
+<li>计算一个新的点 $Q=dP$</li>
+<li>公钥是 $Q$，私钥是 $d$</li>
+</ol>
+<p><strong>Encryption:</strong></p>
+<ol>
+<li>选择一个随机整数 $k \in [1,n-1]$</li>
+<li>计算 $R=kP,z=kQ$，$Z$ 不能是 $\infty$</li>
+<li>计算 $(k_1,k_2)=KDF(x_Z,R)$，其中 $x_Z$ 是 $Z$ 的 $x$ 坐标</li>
+<li>计算 $c=Enc_{k_1}(m)$，$t=MAC_{k_2}(c)$</li>
+<li>输出密文 $(R,c,t)$</li>
+</ol>
+<p><strong>Decryption:</strong></p>
+<ol>
+<li>验证 $R$ 是否有效。通过将 $R$ 代入曲线中可以轻松完成此操作。</li>
+<li>计算 $Z'=dR$</li>
+<li>计算 $(k'<em>1,k'<em>2)=KDF(x</em>{Z'},R)$，其中 $x</em>{Z'}$ 是 $Z'$ 的 $x$ 坐标</li>
+<li>验证 $Very(t,c)$</li>
+<li>解密 $m'=Dec_{k'_1}(c)$</li>
+<li>输出明文 $m'$</li>
+</ol>
+<p>正确性：$Z'=dR=d(kP)=k(dP)=kQ=Z$</p>
+<h2 id="number-16-describe-the-key-generation-signature-and-verification-algorithms-for-dsa-schnorr-and-rsa-fdh"><a href="https://bristolcrypto.blogspot.com/2015/01/52-things-number-15-describe-key.html">Number 16: Describe the key generation, signature and verification algorithms for DSA, Schnorr and RSA-FDH.</a></h2>
+<h3 id="1-digital-signature-scheme-dsa">1. Digital Signature Scheme (DSA)</h3>
+<blockquote>
+<p>也叫 Digital Signature Standard (DSS)</p>
+</blockquote>
+<p>安全性基于计算离散对数的困难性。此外，没有在标准模型下的已知证明。</p>
+<h4 id="11-domain-parameter-generation">1.1 Domain Parameter Generation</h4>
+<ol>
+<li>选择一个素数 $p$，其中 $2^{L−1}&lt;p&lt;2^L$，$L$ 是 64 的倍数，且 $512≤L≤1024$。</li>
+<li>选择 $p−1$ 的素因数 $q$，其中 $2^{159}&lt;q&lt;2^{160}$。</li>
+<li>计算 $q$ 阶子群的生成元 $g$：选择一个随机整数 $r$，其中 $1&lt;r&lt;p−1$，令 $g=r^{(p−1)/q}\ mod\ p$ 且 $g\neq1$。</li>
+</ol>
+<blockquote>
+<p>了解即可</p>
+</blockquote>
+<h4 id="12-key-generation">1.2 Key Generation</h4>
+<ol>
+<li>选择一个随机整数 $x$，其中 $0&lt;x&lt;q$。</li>
+<li>计算 $y=g^x\ mod\ p$。</li>
+</ol>
+<p>公钥是 $y$，私钥是 $x$。</p>
+<h4 id="13-signing">1.3 Signing</h4>
+<ol>
+<li>选择一个随机整数 $k$，其中 $0&lt;k&lt;q$。</li>
+<li>计算 $r=(g^k\ mod\ p)\ mod\ q$。</li>
+<li>计算 $s=k^{-1}\cdot(H(m)+x\cdot r)\ mod\ q$，其中 $H(m)$ 是消息 $m$ 的哈希值（SHA-1）。</li>
+</ol>
+<p>对消息 $m$ 的签名是 $(r,s)$。</p>
+<h4 id="14-verification">1.4 Verification</h4>
+<ol>
+<li>计算 $u_1=H(m)\cdot s^{-1}\ mod\ q$。</li>
+<li>计算 $u_2=r\cdot s^{-1}\ mod\ q$。</li>
+<li>计算 $v=(g^{u_1}\cdot y^{u_2}\ mod\ p)\ mod\ q$。</li>
+<li>如果 $v=r$，则签名有效。</li>
+</ol>
+<h4 id="15-correctness">1.5 Correctness</h4>
+<p>$$
+v=g^{u_1}\cdot y^{u_2}=g^{H(m)\cdot s^{-1}}\cdot g^{x\cdot r\cdot s^{-1}}=g^{H(m)\cdot s^{-1}+x\cdot r\cdot s^{-1}}=g^{(H(m)+x\cdot r)\cdot s^{-1}}=g^k=r
+$$</p>
+<h3 id="2-schnorr-signature-scheme">2. Schnorr Signature Scheme</h3>
+<p>Schnorr 签名是一种重要的基于 DLP 的签名方案。它适用于任何素数阶群，并且其安全性在 DL 假设下的随机预言模型中得到了证明。</p>
+<h4 id="21-domain-parameter-generation">2.1 Domain Parameter Generation</h4>
+<ol>
+<li>选择一个素数 $p$</li>
+<li>选择一个 $p-1$ 的素因数 $q$</li>
+<li>选择 $q$ 阶子群的生成元</li>
+</ol>
+<h4 id="22-key-generation">2.2 Key Generation</h4>
+<ol>
+<li>选择一个随机整数 $x$，其中 $0&lt;x&lt;q$</li>
+<li>计算 $y=g^x\ mod\ p$</li>
+</ol>
+<p>公钥是 $y$，私钥是 $x$</p>
+<h4 id="23-signing">2.3 Signing</h4>
+<ol>
+<li>选择一个随机整数 $k$，其中 $0&lt;k&lt;q$</li>
+<li>计算 $a=g^k\ mod\ p$</li>
+<li>计算 $r=H(m||a)$</li>
+<li>计算 $s=(k+x\cdot r)\ mod\ q$</li>
+</ol>
+<p>对消息 $m$ 的签名是 $(r,s)$</p>
+<h4 id="24-verification">2.4 Verification</h4>
+<ol>
+<li>计算 $v=g^s\cdot y^{-r}\ mod\ p$</li>
+<li>如果 $v=a$，则签名有效</li>
+</ol>
+<h4 id="25-correctness">2.5 Correctness</h4>
+<p>$$
+v=g^s\cdot y^{-r}=g^{k+x\cdot r}\cdot g^{-r\cdot x}=g^k\cdot g^{x\cdot r}\cdot g^{-r\cdot x}=a
+$$</p>
+<h3 id="3-rsa-fdh">3. RSA-FDH</h3>
+<p>RSA-FDH (full domain hash)是一种基于 RSA 的签名方案，遵循 <strong>hash-then-sign</strong> paradigm。它利用哈希函数（哈希函数的输出范围等于 RSA 模数）为普通 RSA 签名方案生成看起来随机的输出。因此，它可以防止对普通 RSA 签名方案的代数攻击，并且能够对任意长度的消息进行签名。但在实践中很难创建这样的哈希函数。 RSA-FDH 可以在随机预言模型中证明是 EU-CMA 安全的。</p>
+<h4 id="31-key-generation">3.1 Key Generation</h4>
+<ol>
+<li>选择两个大素数 $p,q$，计算 $N=p\cdot q$</li>
+<li>选择一个整数 $e$，其中 $1&lt;e&lt;\phi(N)$ 且 $gcd(e,\phi(N))=1$</li>
+<li>计算 $d=e^{-1}\ mod\ \phi(N)$</li>
+</ol>
+<p>公钥是 $(N,e)$，私钥是 $(d,p,q)$</p>
+<h4 id="32-signing">3.2 Signing</h4>
+<ol>
+<li>计算 $s=H(m)^d\ mod\ N$</li>
+</ol>
+<p>对消息 $m$ 的签名是 $s$</p>
+<h4 id="33-verification">3.3 Verification</h4>
+<ol>
+<li>计算 $s^e\overset{?}{=}H(m)\ mod\ N$</li>
+</ol>
+<h3 id="4-correctness">4. Correctness</h3>
+<p>$$
+s^e\ mod\ N=H(m)^{d\cdot e}\ mod\ N=H(m)^1\ mod\ N=H(m)
+$$</p>
+<h2 id="number-17-describe-and-compare-the-round-structure-of-des-and-aes"><a href="https://bristolcrypto.blogspot.com/2015/01/52-things-number-17-describe-and.html">Number 17: Describe and compare the round structure of DES and AES.</a></h2>
+<p>DES 与 AES 都属于迭代分组密码（iterated block ciphers），特点：</p>
+<ul>
+<li>通过重复使用简单的轮函数获得安全性</li>
+<li>轮数 $r$ 可变，一般 $r$ 越大，安全性越高</li>
+<li>每轮的轮密钥都是主密钥通过 key schedule 生成的</li>
+<li>轮加密是一个可逆的过程，注意轮函数本身n不一定是可逆的</li>
+</ul>
+<h3 id="1-des">1. <strong>DES</strong></h3>
+<ol>
+<li>本质属于 Feistel 网络</li>
+</ol>
+<p>$$
+L_{i+1}=R_i\
+R_{i+1}=L_i\oplus F(R_i,K_i)
+$$</p>
+<ol start="2">
+<li>轮函数 $F$ 本身不需要可逆，我们只需要使用相反顺序的轮密钥来解密即可；加解密使用相同的操作</li>
+<li>参数：
+<ul>
+<li>轮数：16</li>
+<li>分组长度：64 bits</li>
+<li>密钥长度：56 bits</li>
+<li>Feistel 迭代之前和之后执行一次permutation</li>
+</ul>
+</li>
+<li>轮函数操作（具体不写，没意思）：
+<ul>
+<li>Expansion Permutation</li>
+<li>Round Key Addition</li>
+<li>Splitting</li>
+<li>S-Box</li>
+<li>P-Box</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-aes">2. <strong>AES</strong></h3>
+<ol>
+<li>不依赖于 Feistel 网络，而是使用了 SPN（Substitution-Permutation Network）</li>
+<li>加密和解密操作不同，基于 $F_2^8$ 上的有限域运算</li>
+<li>参数：
+<ul>
+<li>轮数：10/12/14</li>
+<li>分组长度：128 bits</li>
+<li>密钥长度：128/192/256 bits</li>
+</ul>
+</li>
+<li>轮函数操作（具体不写，没意思）：
+<ul>
+<li>SubBytes</li>
+<li>ShiftRows</li>
+<li>MixColumns</li>
+<li>AddRoundKey</li>
+</ul>
+</li>
+</ol>
+<h2 id="number-18-draw-a-diagram-or-describe-the-ecb-cbc-and-ctr-modes-of-operation"><a href="https://bristolcrypto.blogspot.com/2015/02/52-things-number-18-draw-diagram-or.html">Number 18: Draw a diagram (or describe) the ECB, CBC and CTR modes of operation</a></h2>
+<p>密码学必学内容，具体自己看对应链接，这里只简单过一下</p>
+<p>分组密码可以解决一个块的加密问题，而<strong>操作模式</strong>（Modes of operation）可以解决多个块的加密问题。</p>
+<p><strong><a href="https://en.wikipedia.org/wiki/File:ECB_encryption.svg">ECB</a></strong>
+明文被分为 $m$ 个块，每个块使用相同的密钥单独加密，但重复的明文块会产生相同的密文块.
+<img src="assets/Rlog4/image.png" alt="Alt text">
+<strong><a href="https://en.wikipedia.org/wiki/File:CBC_encryption.svg">CBC</a></strong>
+CBC 模式消除了 ECB 模式的局限性。每个明文在加密之前都与先前的密文进行异或，其中第一个明文块与随机初始化向量 (IV) 进行异或。CBC是实践中最常用的模式。
+<img src="assets/Rlog4/image-1.png" alt="Alt text">
+<strong><a href="https://en.wikipedia.org/wiki/File:CTR_encryption_2.svg">CTR</a></strong>
+它在某种意义上就像流密码。 CTR 模式通过重复加密“计数器”的连续值来生成密钥流。
+<img src="assets/Rlog4/image-2.png" alt="Alt text"></p>
+<p>p.s.：一些操作模式除了保证明文的机密性之外，还保证其真实性。有关更多信息，请参阅 <a href="https://en.wikipedia.org/wiki/Authenticated_encryption">AEAD</a> 模式。</p>
+<h2 id="number-19-the-shamir-secret-sharing-scheme"><a href="https://bristolcrypto.blogspot.com/2015/02/52-things-number-19-shamir-secret.html">Number 19: The Shamir secret sharing scheme.</a></h2>
+<p>如果我们有一个秘密 $S$ 和 $n$ 个参与方，我们可以将 $S$ 分成 $n$ 个部分并将其分发给各个参与方。秘密可以以这样的方式划分：可以设置阈值 $k$，使得当秘密 $S$ 的 $k$ 部分已知时，可以计算整个秘密。如果 $S$ 的 $k−1$ 或更少部分已知，则无法计算 $S$。该方案称为 $(k,n)$ threshold scheme。</p>
+<p>以一个例子说明：
+$S=1425,\ n=5,\ k=3$</p>
+<p>首先确定多项式的阶数（order），即 $k−1$，然后随机选取系数，即随机选取$a_1,a_2$，例如：
+$$
+f(x)=S+a_1x+a_2x^2=1425+64x+112x^2
+$$</p>
+<p>然后可以计算 $n$ 个点：
+$$
+f(1)=1425+64+112=1601\
+f(2)=1425+128+448=2001\
+f(3)=1425+192+1008=2625\
+f(4)=1425+256+1792=3473\
+f(5)=1425+320+2816=4545
+$$
+然后将这些点分发给 $n$ 个参与方。</p>
+<p>解密的话，只需要 $k$ 个点即可，然后使用拉格朗日插值法或者列线性方程组即可得到多项式，最后得到 $S$。
+<img src="assets/Rlog4/image-3.png" alt="Alt text"></p>
+<blockquote>
+<p>听不懂这儿的基本可以告别密码学了</p>
+</blockquote>
+<h2 id="number-20-how-are-merkle-damgaard-style-hash-functions-constructed"><a href="https://bristolcrypto.blogspot.com/2015/02/52-things-number-20-how-are-merkle.html">Number 20: How are Merkle-Damgaard style hash functions constructed?</a></h2>
+<p>英文教材里基本有，这里简单说一下。</p>
+<p>Merkle-Damgaard (MD) 哈希函数是通过扩展抗碰撞压缩函数的域而构建的哈希函数。即，将一个小的压缩函数扩展成一个安全变长的哈希函数</p>
+<h3 id="1-secure-hash-function">1. Secure Hash Function</h3>
+<p>安全哈希函数 $h$ 的特点：</p>
+<ul>
+<li>Pre-image resistant : 给定 $h(x)$，计算 $x$ 是困难的</li>
+<li>Second pre-image resistance : 给定 $x$，计算 $y$, 使得 $h(x)=h(y)$ 是困难的</li>
+<li>Collision Resistance: 找到 $x,y$，使得 $h(x)=h(y)$ 是困难的</li>
+</ul>
+<h3 id="2-compression-function">2. Compression Function</h3>
+<p>$$
+h:{0,1}^n\times {0,1}^r \rightarrow{0,1}^n
+$$
+顾名思义就是把 $n+r$ 位的输入压缩成 $n$ 位的输出，当然也是 Collision Resistance 的。可以理解为固定输入长度的哈希函数。</p>
+<h3 id="3-merkle-damgaard-hash-function-construction">3. Merkle-Damgaard hash function Construction</h3>
+<p>将 “固定输入长度” 变为 “变长输入长度”，维基百科截下来的图：
+<img src="assets/Rlog4/image-4.png" alt="Alt text">
+教材上截下来的图：
+<img src="assets/Rlog4/image-5.png" alt="Alt text"></p>
+<p>输入 $M$ 被分成 $n$ 个块 $M_1,M_2,...,M_m$，然后通过迭代的方式计算哈希值：
+$$
+S_0=IV\qquad i=0,\cdots m-1\
+S_{i+1}=f(S_{i},M_i)\
+h(M)=S_m
+$$</p>
+<p>MD 结构最重要的是，如果压缩函数是抗碰撞的，那么整体结构也是抗碰撞的</p>
+<p>P.S. : 注意到上图有个 “finalisation” 阶段，这个阶段是为了防止长度扩展攻击（length extension attack）</p>
+<blockquote>
+<p>如果 $N$ 是一个块，且已知 $h(M)=x$ ，那么可以通过 $h(M||N)=f(x,N)$ 轻易计算 $M||N$ 的哈希值</p>
+</blockquote>
+
+</body>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rlog6.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="what-did-you-learn">What did you learn？</h1>
+<blockquote>
+<p>Security Definitions and Proofs</p>
+</blockquote>
+<h2 id="number-27-what-is-the-aead-security-definition-for-symmetric-key-encryption"><a href="https://bristolcrypto.blogspot.com/2015/04/52-things-number-27-what-is-aead.html">Number 27: What is the AEAD security definition for symmetric key encryption?</a></h2>
+<p>前面（#18）介绍的分组密码的各种模式，本质上是为了机密性（confidentiality）服务的，现实情况中，我们还需要保证完整性（integrity）和认证性（authenticity）。</p>
+<blockquote>
+<p><strong>AE</strong> 指的就是 <strong>Authenticated Encryption</strong>，认证加密
+<strong>AD</strong> 指的就是 <strong>variable-length Associated Data</strong>，例如 packet header</p>
+<blockquote>
+<p>For more information on the impact of associated data, see <a href="https://dl.acm.org/doi/10.1145/586110.586125">here</a> and <a href="https://eprint.iacr.org/2011/269.pdf">here</a>.</p>
+</blockquote>
+</blockquote>
+<p>为了达到这些目的，引入一个叫做 message authentication code （MAC）的东西，经典的实现方法是利用哈希函数（HMAC）。但是加密和认证这两个原语不能随随便便地组合在一起。为了达到 IND-CCA 安全性，我们必须遵守“先加密后认证”原则（'Encrypt-then-MAC' paradigm）</p>
+<blockquote>
+<p><a href="https://link.springer.com/chapter/10.1007/3-540-44448-3_41">Encrypt-and-MAC</a>, <a href="https://eprint.iacr.org/2014/206.pdf">MAC-then-Encrypt</a> 是不可以的，英文教材可以参照 <strong>P132</strong> (有证明)</p>
+</blockquote>
+<p>We normally expect authenticity and integrity but not confidentiality from this optional component. For further reading and examples, see Adam Langley's <a href="https://www.imperialviolet.org/2015/05/16/aeads.html">blog</a> on the topic</p>
+<ol>
+<li>IND-CCA2 (下章)</li>
+<li>IND-CCA3
+<blockquote>
+<p><a href="https://eprint.iacr.org/2004/272.pdf">Shrimpton</a> 2004 年提出来的，解密语言机只能返回无效符号$\bot$，而不是错误的明文。这个模型更加接近现实，因为在现实中，解密器不会告诉你明文是错误的，而是会告诉你解密失败了。就跟在 AE 中一样，完整性和机密性是分开了的。</p>
+</blockquote>
+</li>
+<li>CCM
+<blockquote>
+<p>a combination of a blockcipher in <strong>C</strong>ounter mode with <strong>C</strong>BC-MAC with the <strong>M</strong>AC-then-Encrypt approach。由于需要提前知道信息长度，所以不适用于online，且需要调用两次分组密码，所以在效率上会逊色一些。</p>
+</blockquote>
+</li>
+<li>GCM
+<blockquote>
+<p>uses Encrypt-then-<strong>M</strong>AC with a blockcipher in <strong>C</strong>ounter mode and a polynomial-based hash function called <strong>G</strong>HASH. <a href="http://eprint.iacr.org/2011/202">Saarinen</a> 指出，这个方法存在弱密钥。</p>
+</blockquote>
+</li>
+<li><a href="https://competitions.cr.yp.to/caesar.html">CAESAR</a>
+<blockquote>
+<p>Competition for Authenticated Encryption: Security, Applicability, and Robustness
+<a href="https://aezoo.compute.dtu.dk/doku.php">AE Zoo</a></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="number-28-what-is-the-ind-cca-security-definition-for-public-key-encryption"><a href="https://bristolcrypto.blogspot.com/2015/04/52-things-number-28-what-is-ind-cca.html">Number 28: What is the IND-CCA security definition for public key encryption?</a></h2>
+<p>IND-CCA security : <strong>Ind</strong>istinguishable <strong>C</strong>hosen <strong>C</strong>iphertext <strong>A</strong>ttack</p>
+<p><em>model 1</em> : <strong>find-then-guess</strong> security game</p>
+<blockquote>
+<p>敌手允许在第 3，4 步之前与之后访问加密与解密预言机，当然也有第 3,6 步</p>
+</blockquote>
+<ol>
+<li>
+<p>Generate the public and secret keys $(p_k,s_k)$. The adversary A has access to the public key $p_k$</p>
+</li>
+<li>
+<p>Assign $b\leftarrow{0,1}$ privately</p>
+</li>
+<li>
+<p>A is allowed to query the decryption oracle $Dec_{sk}$ and the encryption oracle $Enc_{pk}$</p>
+</li>
+<li>
+<p>A then outputs a pair of messages $(m_0,m_1)$</p>
+</li>
+<li>
+<p>We output the encryption $c=Enc_{pk}(m_b)$</p>
+</li>
+<li>
+<p>The adversary is allowed to enquire for more encryptions or decryptions, as in step 3, but he is not allowed to ask for the decryption of $c$</p>
+</li>
+<li>
+<p>A outputs $b^′\in{0,1}$. A wins if $b=b'$</p>
+</li>
+</ol>
+<p>我们说 the <strong>advantage</strong> of A is $Adv(A)=2∣Pr[A\ wins]−1/2∣$. A scheme is said to be IND-CCA secure if the said advantage is negligible.</p>
+<p><em>model 2</em> : <strong>real-or-random</strong> security game</p>
+<blockquote>
+<p>上一章的 IND-CCA2 就是这个模型</p>
+</blockquote>
+<p>不同点就是在 Step 5,  A 不会每次都乖乖加密 $m_b$，而是在 $b=0$ 的时候返回一个随机消息 $m'$ 的加密, A 必须得区分他是在 “real” 还是 “random” 的世界中， advantage 和安全性的定义是相似的。</p>
+<p>这两个定义其实是等价的，对于模型 1 的攻击者 A，我们可以构造一个模型 2 的攻击者 B：
+$$
+Adv_{find-and-guess}(A)=2\cdot Adv_{real-and-random}(B)
+$$</p>
+<h2 id="number-29-what-is-the-uf-cma-security-definition-for-digital-signatures"><a href="https://bristolcrypto.blogspot.com/2015/04/52-things-number-29-what-is-uf-cma.html">Number 29: What is the UF-CMA security definition for digital signatures?</a></h2>
+<p>在之前的文章中我们介绍了 DSA, Schnorr and RSA-FDH（#16）签名算法的细节
+现在我们来看看签名系统及其安全性。</p>
+<ol>
+<li>
+<p>签名系统的定义
+签名方案用于证明消息的来源
+A signature scheme $S$ is a tuple of algorithms $(KG,Sign,VRFY)$ :</p>
+<ul>
+<li>$KG$ is a randomised algorithm which outputs a secret key $sk$ and a public key $pk$.</li>
+<li>$Sign$ is a (possibly) randomised algorithm which on input $sk$ and a message $m$ it outputs a signature $\sigma$</li>
+<li>$VRFY$ is a deterministic (non-stateful) algorithm which takes in the public key $pk$, a message $m$ and a signature $\sigma$ and returns 1 if $\sigma$ is a signature on $m$ and 0 otherwise</li>
+</ul>
+</li>
+<li>
+<p>UF-CMA security
+需要玩下面这个游戏：</p>
+<ul>
+<li>The game runs $KG$ to get $(p_k,s_k)$</li>
+<li>The adversary A is given $p_k$ and can then send messages $m_i$ to the game and get back signatures $\sigma_i$ under the secret key $s_k$</li>
+<li>A must output a pair $(m^∗,\sigma^∗)$
+如果 A $\sigma^∗$ 是 $m^∗$ 的签名，且 $m^∗$ 不是 A 之前询问过的消息，那么我们就说 A 获胜。</li>
+</ul>
+<p>UF-CMA security 就是说 A 获胜的概率是可以忽略的。</p>
+</li>
+</ol>
+<h2 id="number-30-roughly-outline-the-br-security-definition-for-key-agreement"><a href="https://bristolcrypto.blogspot.com/2015/05/52-things-number-30-roughly-outline-br.html">Number 30: Roughly outline the BR security definition for key agreement</a></h2>
+<blockquote>
+<p>主要是关于 authenticated key exchange 的安全性定义</p>
+</blockquote>
+<p>密钥交换一直是个非常难以解决的问题，光从定义角度看都比简单的加密要难好多，即使是著名的 <a href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange">Diffie-Hellman protocol</a>, 都不能保证认证性。</p>
+<blockquote>
+<p>例如存在中间人攻击</p>
+</blockquote>
+<p>为了模型化这些攻击，于是有了两种方法来进行安全性定义：</p>
+<ol>
+<li>
+<p>symbolic model
+采用形式化的技术来对协议进行建模和分析，例如 <a href="https://en.wikipedia.org/wiki/BAN_logic">BAN logic</a> 。
+优点：对于已经存在的攻击，可以很容易地对其建模，可以很好的识别攻击；也可以使用 theorem provers 使证明半自动化
+缺点：底层逻辑很难捕捉到所有类别的攻击，所以使用该模型分析出的安全性没那么靠谱</p>
+</li>
+<li>
+<p>computational model
+1993年，<a href="https://seclab.cs.ucdavis.edu/papers/Rogaway/eakd.pdf">Bellare and Rogaway</a> 为认证密钥交换提出了在计算模型中的基于游戏的安全性定义，即 BR security definition。非常类似于 IND-CPA 和 IND-CCA。</p>
+</li>
+</ol>
+<p>现在我们不需要考虑系统是不是单纯的牢不可破，而是量化攻击者成功的概率。
+所以也不用具体化攻击者的能力，我们直接给一个概念能力： <strong>所有的通信都在敌手的控制之下</strong></p>
+<blockquote>
+<p>read, modify, delay, replay, etc.
+paper原话：The adversary can deliver messages out of order and to unintended recipients, and she can concoct messages of her own choosing. What is more, the adversary can conduct as many sessions as she pleases amongst the players, and she can control, for each, who is attempting to authenticate to whom.</p>
+</blockquote>
+<p>敌手还可以与其他方同时运行任意数量的协议实例。</p>
+<p>希望达到的安全性用大白话讲就是：对手让一方接受商定密钥的唯一方法是转发来自真实协议运行的诚实消息，而这样他们不可能学到任何新东西。</p>
+<blockquote>
+<p>The intuition behind the AKA security game is that the only way an adversary can get a party to accept an agreed key is by forwarding honest messages from a genuine protocol run, in which case they cannot possibly learn anything new.</p>
+</blockquote>
+<p>这个安全性游戏包含很多不同的预言机供敌手查询，三个最主要的：</p>
+<ul>
+<li>corruption oracle
+<blockquote>
+<p>allows the adversary to take control of a chosen party</p>
+</blockquote>
+</li>
+<li>key registration oracle
+<blockquote>
+<p>registers a public key for any chosen user</p>
+</blockquote>
+</li>
+<li>message oracle
+<blockquote>
+<p><strong>main</strong> oracle used for <strong>passing messages</strong>.
+Note that messages are not sent directly between the participants, instead the adversary does this using the message oracle (我感觉可以理解为控制通信)</p>
+</blockquote>
+</li>
+</ul>
+<p>message oracle 是主要的预言机，允许敌手与各方创建协议会话（session），目标是建立短期或临时共享密钥并发送消息。当查询预言机时，可以执行以下操作之一：</p>
+<ul>
+<li>在两个用户之间启动新会话
+<blockquote>
+<p>Start a new session between two users</p>
+</blockquote>
+</li>
+<li>了解任意终止会话的密钥
+<blockquote>
+<p>Learn the secret key of any terminated session</p>
+</blockquote>
+</li>
+<li>在现有会话中发送消息并接收响应 （不太理解这有什么用？）
+<blockquote>
+<p>Send a message in an existing session and receive the response</p>
+</blockquote>
+</li>
+</ul>
+<p>这个安全性游戏遵循前面的 real-or-random paradigm</p>
+<blockquote>
+<p>选一个 bit $b$, $b=0$ 的话给敌手一个随机的密钥，$b=1$ 的话给敌手一个真实的密钥，敌手的目标就是区分这两种情况</p>
+</blockquote>
+<p>与预言机交互后，敌手选择一个已终止的会话，其中双方都没有被贿赂，并且不存在泄露过密钥的对话（不然就没意思了）。然后会这次会话的挑战密钥。猜对了 $b$ 意味着获胜。</p>
+<blockquote>
+<p>泄露密钥的会话我理解的是：1. 这个会话没有使用同样的密钥；2. 这个会话中发的消息中不包含当前的密钥</p>
+</blockquote>
+<h2 id="number-31-number-31-game-hopping-proof"><a href="https://bristolcrypto.blogspot.com/2015/05/52-things-number-31-game-hopping-proof.html">Number 31: Number 31: Game Hopping Proof</a></h2>
+<p>我们将编写一系列游戏，其中第一个游戏（Game 0）是最初的挑战者，然后每次对挑战者进行小的修改。<strong>相邻的比赛应该没有区别</strong>，但最后一次比赛敌手应该不可能获胜。</p>
+<p>本章以 DDH （#11）与 EIGamal 为例:</p>
+<blockquote>
+<p>DDH: $g^a, g^b, g^{ab}$ 是不可区分的
+EIGamal: 私钥 $x$，公钥 $X=g^x$，密文 $(c_1,c_2)=(g^y,MX^y)$；解密 $m=c_2c_1^{-x}$</p>
+</blockquote>
+<h3 id="mathrmgame0">$\mathrm{Game}_0$</h3>
+<blockquote>
+<p>(adversary $\mathcal{A}$ plays)</p>
+</blockquote>
+<ol>
+<li>$x\overset{$}{\leftarrow}\mathbb{Z}_q,X\leftarrow g^x$</li>
+<li>$(M_0,M_1)\overset{$}{\leftarrow}\mathcal{A}(X)$
+<blockquote>
+<p>$\mathcal{A}$ 拥有公钥并生成一对儿挑战消息 $M_0,M_1$</p>
+</blockquote>
+</li>
+<li>$b\overset{$}{\leftarrow}{0,1}$</li>
+<li>$y\overset{$}{\leftarrow}\mathbb{Z}_q,c_1\leftarrow g^y,Z\leftarrow X^y,c_2\leftarrow M_bZ$</li>
+<li>$b'\leftarrow\mathcal{A}(c_1,c_2)$</li>
+<li>if $b=b'$ output 1 else 0</li>
+</ol>
+<p>如果游戏返回 1，那么我们就说 $\mathcal{A}$ 获胜，而 the <strong>advantage</strong> of $\mathcal{A}$ against the IND-CPA security of ElGamal is:
+$$
+\mathrm{Adv}(\mathcal{A})=2|\Pr[\mathcal{A}\ wins\ \mathrm{Game}_0]-1/2| \tag{1}
+$$</p>
+<h3 id="mathrmgame1">$\mathrm{Game}_1$</h3>
+<p>区别仅在第四步，将 $Z\leftarrow X^y$ 替换为：
+$$
+z\overset{$}{\leftarrow}\mathbb{Z}_q,Z\leftarrow g^z
+$$
+所以新的密文为 $(c_1,c_2)=(g^y,M_bg^z)$，而不是 $(g^y,M_bg^{xy})$</p>
+<p>重申，如果游戏返回 1，那么我们就说 $\mathcal{A}$ 获胜。不同之处在于 $Z$ 现在是随机的（因为 $z$ 是随机的），所以 $c_2$ 也是随机的，与 $X,c_1,b$ 均无关。因此 $\mathcal{A}$ 无法从 $c_1,c_2$ 中学到任何关于 $b$ 的信息，所以其获胜的概率是 1/2（只能蒙），即：
+$$
+\Pr[\mathcal{A}\ wins\ \mathrm{Game}_1]=1/2\tag{2}
+$$</p>
+<h3 id="mathrmlink">$\mathrm{Link}$</h3>
+<p>发现前后仅仅是将 $Z$ 从 $g^{xy}$ 替换为 $g^z$，怎么把这个和 DDH问题 联系到一起就很显而易见了~
+为了将这种联系显示的更清楚一些，我们通过敌手 $\mathcal{A}$ 构建敌手 $\mathcal{B}$ 来解决 DDH 问题：</p>
+<ol>
+<li>对于输入 $X,Y,Z$，将 $X$ 作为输入运行 $\mathcal{A}$ 并一对儿挑战消息 $(M_0,M_1)$</li>
+<li>随机选择一个 bit $b\overset{$}{\leftarrow}{0,1}$，并计算 $M_bZ$</li>
+<li>将 “密文” $(Y,M_bZ)$ 发送给 $\mathcal{A}$，并接受输出 $b'$</li>
+<li>如果 $b=b'$，则猜测 $Z=g^{xy}$并返回 1 ；反之则猜测 $Z$ 为随机数并返回 0</li>
+</ol>
+<p>如果给 $\mathcal{B}$ 的是一个真正的 DH 三元组 $(g^x,g^y,g^{xy})$，那么上述就是对 $\mathcal{A}$ 运行$\mathrm{Game}_0$的模拟
+如果给 $\mathcal{B}$ 的是一个假的三元组 $(g^x,g^y,g^z)$，那么上述就是对 $\mathcal{A}$ 运行$\mathrm{Game}_1$的模拟</p>
+<p>因此，$\mathcal{A}$ 运行 $\mathrm{Game}_0$ 获胜 和运行 $\mathrm{Game}_1$ 获胜的区别恰好就是给 $\mathcal{B}$ 输入 $(g^x,g^y,g^{xy})$ 时输出 1 和给 $\mathcal{B}$ 输入 $(g^x,g^y,g^z)$ 时输出 1 的区别。
+这个区别也就是 the advantage of $\mathcal{B}$ against DDH.</p>
+<p>结合 $(1)$ 和 $(2)$，我们就得到 <strong>the advantage of $\mathcal{A}$ against the IND-CPA security of ElGamal is no greater than the advantage of $\mathcal{B}$ against DDH</strong>.</p>
+<p>如果 DDH 问题对于所有多项式时间对手来说都是困难的话（意味着他们的优势可以忽略不计），那么 ElGamal 也肯定是 IND-CPA 安全的。</p>
+<blockquote>
+<p>很像规约证明啊（就是一个东西吧）</p>
+</blockquote>
+<h2 id="number-32-difference-between-game-based-and-simulation-based-security-definitions"><a href="https://bristolcrypto.blogspot.com/2015/05/52-things-number-32-difference-between.html">Number 32: difference between game-based and simulation-based security definitions</a></h2>
+<h3 id="game-based">game-based</h3>
+<p>字面意思，通过游戏进行安全性定义</p>
+<ol>
+<li>
+<p>游戏围绕着一些通用<strong>原语</strong>展开，通常是敌手和挑战者玩，其中挑战者向对手提出挑战，并牢记某个 “目标”。
+敌手往往也有一些特殊的能力，例如可以访问若干预言机，如果其实现 “目标” 则 “获胜”。</p>
+<blockquote>
+<p>“获胜”通常意味着敌手根据挑战者提出的挑战来提供了某些 “正确” 的输出</p>
+</blockquote>
+</li>
+<li>
+<p>敌手的 优势（advantage） 则被量化为一个数字，代表着敌手能比盲猜 “更好” 多少</p>
+<blockquote>
+<p>一个由该通用原语实例化的密码学系统，如果所有的 PPT 敌手对其的优势都是可以忽略不计的，那么我们就说这个密码学系统满足该安全性定义。</p>
+</blockquote>
+</li>
+<li>
+<p>一般情况下，可以将挑战者视为合法用户，将敌手视为想要违背合法用户意愿实现某些目标的 bad guy；挑战者有权访问所有秘密参数（比如私钥），敌手则只能访问一些预言机（比如公钥与哈希函数）与挑战者给的东西（比如公共参数和挑战本身）</p>
+</li>
+<li>
+<p>这种安全性证明包含两个重要概念：</p>
+<ul>
+<li><strong>reduction</strong>：将安全性与计算困难问题联系起来
+<blockquote>
+<p>'if an adversary wins the game with non-negligible advantage, it is possible to construct an algorithm that uses the adversary as a subroutine to solve some hard problem efficiently.'</p>
+</blockquote>
+</li>
+<li><strong>game hopping</strong> (#31)</li>
+</ul>
+</li>
+<li>
+<p>前面五篇有四篇是基于游戏的安全性定义，还有一个是基于一系列游戏的证明</p>
+</li>
+</ol>
+<h3 id="simulation-based">simulation-based</h3>
+<p>安全性是根据模拟器的存在和一些理想的“功能”来定义的。</p>
+<p>考虑一个现实世界中的密码学方案，然后想象一下我们希望该方案在理想世界中如何表现？
+就拿投票系统举例：
+我们希望有一个可信的第三方，可以给所有投票者提供一个安全信道，投票通过安全信道汇总然后公布结果，除此之外不暴露任何信息。</p>
+<p><strong>如果对于现实世界中所有敌手，存在一个模拟器，在面对理想世界中的理想“功能”时，可以提供与这些现实敌手相同的输出，那么我们就说该密码学方案是安全的。</strong></p>
+<blockquote>
+<p>A cryptographic scheme is now secure if, for any adversary against this scheme in the real world, there exists a simulator that provides the same output as the adversary in the real world, while interacting with the ideal 'functionality' in the ideal world.</p>
+</blockquote>
+<p>因为这意味着现实世界中任何可能的“攻击”都可以应用于理想世界中的理想功能。相反，如果理想功能能够抵御理想世界中的攻击，那么真实方案也能够抵御现实世界中的这些攻击。</p>
+<blockquote>
+<p>这个概念最初出现于 <a href="https://www.math.ias.edu/~avi/PUBLICATIONS/MYPAPERS/GMW87/GMW87.pdf">1987年</a> 一篇关于多方联合计算的文章中。它说可以玩任何游戏（我觉得因为和游戏本身没关系了，所以不是game-based），不管在游戏的哪一步，反正只要参与人数少于总人数的一半，那么就不可能学到任何新知识。<strong>现在这个概念也常常用于 MPC</strong>。</p>
+</blockquote>
+<h3 id="difference">difference</h3>
+<p>在基于游戏的方法中，每个安全概念都有自己的游戏。如果这个概念能够正确捕获或模拟了我们希望系统具有的现实世界的属性，那么这个概念就定义好了。如果我们的方案需要满足不同的安全概念，我们就需要为每一个概念都进行对应的游戏。</p>
+<blockquote>
+<p>感觉就像中药抓药一样，要哪个就抓哪个。当然，药材之间也存在上下级关系，例如 IND-CCA 隐含着 IND-CPA 。</p>
+</blockquote>
+<p>相反，在基于模拟的方法中，安全性是通过理想功能（functionality）来建模的。我们的方案只要不被攻击破坏功能就可以了！这意味着该模型捕获了不同的安全概念。</p>
+<blockquote>
+<p>就像看病一样，别管我怎么看的，求神拜佛还是周易算卦还是吃药手术，反正病好了就行！</p>
+</blockquote>
+<p>p.s. : <a href="https://crypto.stackexchange.com/questions/3814/simulation-based-security">More</a> and <a href="https://crypto.stackexchange.com/questions/6149/what-are-the-differences-between-proofs-based-on-simulation-and-proofs-based-on">More</a></p>
+
+</body>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
+</html>

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rlog5.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="what-did-you-learn">What did you learn？</h1>
+<blockquote>
+<p>密码算法的优化方法</p>
+</blockquote>
+<h2 id="number-21-how-does-the-crt-method-improve-performance-of-rsa"><a href="https://bristolcrypto.blogspot.com/2015/02/52-things-number-21-how-does-crt-method.html">Number 21: How does the CRT method improve performance of RSA?</a></h2>
+<p><strong>The Chinese Remainder Theorem (CRT) 中国剩余定理：</strong>
+当有俩等式 $x\equiv a\ (mod\ M),x\equiv b\ (mod\ N)$ 时，如果 $M,N$ 互质，那么可以通过 CRT 计算出 $x$ 的唯一解。</p>
+<p><strong>一些题外话：</strong>
+RSA方案中的主要运算是模幂( modular exponentiation )$M=C^d(mod\ N)$。一次模幂云散在改进的状态下，可以使用 $(h - 1)$ 次乘法和 $(t - 1)$ 次平方操作（$t$ 是指数的位长度，$h$ 是汉明权重）。乘法和平方平均次数为 $t+t/2−1$。
+进一步改进：我们可以使用 binary exponentiation algorithms 或者 window methods。对于后者，我们一次处理 $w$ 位指数，这种方法，我们仍然需要 $t$ 次平方，但乘法次数平均减少到 $t/w$。通过采用滑动窗口方法，乘法次数可以降到平均 $t/(w + 1)$ 次。</p>
+<p><strong>开始正题：</strong>
+CRT 用于 RSA 解密的情况。因此，我们正在考虑私钥操作，这意味着我们可以访问私钥，从而可以访问模数 $N=pq$ 的因式分解。如果我们假设我们想要解密一条消息，那么我们的目标是计算 $M=C^d(mod\ N)$。
+首先我们计算：
+$$
+M_p=C^d(mod\ p)=C^{d(mod\ p-1)}(mod\ p)\
+M_q=C^d(mod\ q)=C^{d(mod\ q-1)}(mod\ q)
+$$
+此计算需要对 512 位取模和 512 位指数求幂，因为 $p$ 和 $q$ 是 512 位。这比用 1024 位数字进行单次取模求幂要快。</p>
+<p>使用 CRT 可以根据 $M_p,M_q$ 计算出 $M$：
+$$
+M=M_p+p\cdot(p^{-1}\ mod\ q)\cdot(M_q-M_p)\ (mod\ N)
+$$
+另一种表示方法：
+$$
+T = p^{-1}\ mod\ q\qquad 作为私钥\
+U = (M_q-M_p)T\ mod\ q\
+M = M_p+U\cdot p
+$$
+p.s.：$q^{-1}\ mod\ p\cdot q+p^{-1}\ mod\ q\cdot p=1\ mod \ N$</p>
+<h2 id="number-22-how-do-you-represent-a-number-and-multiply-numbers-in-montgomery-arithmetic"><a href="https://bristolcrypto.blogspot.com/2015/03/52-things-number-22-how-do-you.html">Number 22: How do you represent a number and multiply numbers in Montgomery arithmetic?</a></h2>
+<p>这个连问题都看不懂了属于是</p>
+<h3 id="1-secure-and-efficient">1. Secure and Efficient</h3>
+<p>虽然密码学的目标是设计高度安全的密码协议，但还必须能够有效地实现这些协议，以便可以一遍又一遍地执行这些协议，而不会减慢用户的速度，例如在线购物或转账通过网上银行。因此，需要采取措施最大限度地减少这些协议中使用的每种算法的计算成本。此类算法中使用的最昂贵的运算之一是对某些 $n&gt;0$ 进行 reduction of integers modulo，因为它实际上是除法运算。</p>
+<h3 id="2-the-cost-of-modular-reductions">2. The Cost of Modular Reductions</h3>
+<p>假如我们知道 $a\ mod\ n,b\ mod\ n$，现在想计算 $ab\ mod\ n$。我们可以计算 $ab$，然后再对 $n$ 取模。一次乘法倒是还好，但是多次这样的计算成本会很高，比如 $c=m^e$ ,需要迭代 $e$ 次，每次都要取模，$e$ 可不是一个小数目。一个解决办法是先把乘法算完了最后模。但这样的话，我们必须得存储（并计算）非常非常大的数字。肿么办？</p>
+<h3 id="3-%22montgomery-space%22">3. &quot;Montgomery Space&quot;</h3>
+<p><a href="https://blog.csdn.net/bjarnecpp/article/details/77644958">Montgomery</a> 提出了一种方法，可以在不进行模运算的情况下进行乘法。这种方法是通过引入一个称为 Montgomery 空间的新空间来实现的。在这个空间中，我们可以进行乘法，而不需要进行模运算。然后，我们可以将结果转换回普通的空间，而不需要进行模运算。这种方法的关键是选择一个称为 Montgomery 模数的特殊模数。这个模数是一个方便的模数，通常是 2 的幂。</p>
+<p>为什么这个模数是方便的呢？因为我们可以通过移位来实现模运算。假设我们有一个数 $x$，与特殊模数 $r=2^k$，将 $x$ 变为二进制串</p>
+<ul>
+<li>计算 $x\ mod\ r$，只需要保留 $x$ 最低的 $k$ 位</li>
+<li>计算 $xr$，只需将 $x$ 左移动 $k$ 位</li>
+<li>计算 $x/r$，只需将 $x$ 右移动 $k$ 位</li>
+</ul>
+<h3 id="4-montgomery-algorithm">4. Montgomery Algorithm</h3>
+<p>$a,b,n,r$，其中$gcd(n,r)=1$，且 $r&gt;n$，我们可以计算 $ab\ mod\ n$：</p>
+<ol>
+<li>通过扩展欧几里得算法计算 $rr^{-1}=1+nn'$
+<blockquote>
+<p>这步很快的。而且因为 $r$ 是 2 的幂，$n$ 是奇数，所以 $gcd(n,r)=1$，所以肯定有解</p>
+</blockquote>
+</li>
+<li>计算$\bar{a}=ar\ mod\ n$与$\bar{b}=br\ mod\ n$
+<blockquote>
+<p>$a\times r$这步也很快，因为 $r$ 是 2 的幂，所以只需要移位
+$mod\ n$ 这步开销比较大，甚至比naive的算法还要大，所以本算法更适用于少数 multiplier 多次相乘的情况（e.g. $a^mb^{m'}$），这样结果可以多次重复使用步骤 2，3 的结果</p>
+</blockquote>
+</li>
+<li>计算$u=abr\ mod\ n$
+<blockquote>
+<p>每一步都很快</p>
+</blockquote>
+<ul>
+<li>$t\leftarrow \bar{a}\bar{b}$</li>
+<li>$u\leftarrow (t+(n't\ mod\ r)n)/r$</li>
+<li>if $u\geq n$ then $u\leftarrow (u-n)$</li>
+<li>output $u$</li>
+</ul>
+</li>
+<li>Multiply $u$ by $r^{−1}$ and reduce modulo $n$
+<blockquote>
+<p>同 2</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>正确性</strong>：
+$$
+u = abr\ mod\ n\
+=arbrr^{-1}\ mod\ n\
+=tr^{-1}\ mod\ n\
+=trr^{-1}/r\ mod\ n\
+=t(1+nn')/r\ mod\ n\
+=((t+nn't)/r+mn)\ mod\ n\
+=(t+(n't+mr)n)/r\ mod\ n\quad for\ any\ m\
+(选择一个合适的 m)\overset{n't+mr=(n't\ mod\ r)}{=}(t+(n't\ mod\ r)n)/r\ mod\ n
+$$</p>
+<blockquote>
+<p>可以发现没有$\ mod\ n$ 的操作。</p>
+</blockquote>
+<p>因为 $n&gt;r&gt;0$，可以得出 $n^2&lt;rn\Rightarrow n^2+rn&lt;2rn\Rightarrow(n^2+rn)/r&lt;2n$
+所以$(t+(n't\ mod\ r)n)/r&lt;2n$，因此不需要$\ mod\ n$，只需要看情况减去 $n$ 即可。</p>
+<h2 id="number-23-write-a-c-program-to-implement-montgomery-arithmetic"><a href="https://bristolcrypto.blogspot.com/2015/03/52-things-number-22-write-c-program-to.html">Number 23: Write a C program to implement Montgomery arithmetic.</a></h2>
+<p>自己写了一个</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-comment">// 求模逆</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">mod_inverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> m)</span> </span>{
+    <span class="hljs-keyword">int</span> m0 = m, t, q;
+    <span class="hljs-keyword">int</span> x0 = <span class="hljs-number">0</span>, x1 = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">if</span> (m == <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-keyword">while</span> (a &gt; <span class="hljs-number">1</span>) {
+        q = a / m;
+        t = m;
+        m = a % m, a = t;
+        t = x0;
+        x0 = x1 - q * x0;
+        x1 = t;
+    }
+    <span class="hljs-keyword">if</span> (x1 &lt; <span class="hljs-number">0</span>) {
+        x1 += m0;
+    }
+    <span class="hljs-keyword">return</span> x1;
+}
+
+<span class="hljs-comment">// 计算Montgomery reduction</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">montgomery_reduction</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> r_inv)</span> </span>{   
+    <span class="hljs-keyword">int</span> n_apo = (r*r_inv - <span class="hljs-number">1</span>)/n;
+    
+    <span class="hljs-keyword">int</span> a_bar = a * r % n;
+    <span class="hljs-keyword">int</span> b_bar = b * r % n;
+    <span class="hljs-keyword">int</span> t = a_bar * b_bar;
+    <span class="hljs-keyword">int</span> m = t * n_apo % r;
+    <span class="hljs-keyword">int</span> u = (t + m * n) / r;
+    
+    <span class="hljs-keyword">if</span> (u &gt;= n) {
+        <span class="hljs-keyword">return</span> u - n;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> u;
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> a = <span class="hljs-number">123</span>; <span class="hljs-comment">// 输入参数a</span>
+    <span class="hljs-keyword">int</span> b = <span class="hljs-number">456</span>; <span class="hljs-comment">// 输入参数b</span>
+    <span class="hljs-keyword">int</span> n = <span class="hljs-number">1009</span>; <span class="hljs-comment">// 模数n</span>
+    <span class="hljs-keyword">int</span> r = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">10</span>; <span class="hljs-comment">// 选择r为2的8次方，且r &gt; n</span>
+    <span class="hljs-keyword">int</span> r_inv = mod_inverse(r, n);
+
+    <span class="hljs-keyword">int</span> u = montgomery_reduction(a, b, n, r, r_inv);
+    <span class="hljs-keyword">int</span> result = u * r_inv % n;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Montgomery reduction of %d and %d modulo %d is: %d\n"</span>, a, b, n, result);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<h2 id="number-24-describe-the-binary-m-ary-and-sliding-window-exponentiation-algorithms"><a href="https://bristolcrypto.blogspot.com/2015/02/52-things-number-24-describe-binary-m.html">Number 24: Describe the binary, m-ary and sliding window exponentiation algorithms.</a></h2>
+<blockquote>
+<p>继续考虑一些计算模幂（modular exponentiations）的不同方法，例如计算：$X^E\ mod\ N$。</p>
+</blockquote>
+<h3 id="1-binary">1. Binary</h3>
+<p><a href="https://blog.csdn.net/qq_42146775/article/details/102635980">The binary modular exponentiation</a>
+举例：
+<img src="assets/Rlog5/image.png" alt="Alt text">
+可以看出前一个基数的幂是后一个基数幂的平方，所以我们假设第一个基数为 $b_1$，第二个为 $b_2$，依次类推
+<img src="assets/Rlog5/image-1.png" alt="Alt text">
+现在我们合并一下，即每个先乘以低位mod的结构，再mod
+<img src="assets/Rlog5/image-2.png" alt="Alt text">
+我们再优化一下，指数等于 0是没有必要乘的，但是我们任然需要计算基数，方便下一个直接平方
+<img src="assets/Rlog5/image-3.png" alt="Alt text">
+其实上面每次算基数时，我们仍然可以mod 497
+<img src="assets/Rlog5/image-4.png" alt="Alt text"></p>
+<p>每一步都有两个操作</p>
+<ol>
+<li>(假如幂是 1 执行，是 0 直接执行第二步)：基数(记为 $B$ ) 乘前一位的结果 (记为 $R$)</li>
+<li>基数 $B$ 平方且mod n为下一次作准备 $B^2\ mod\ n$</li>
+</ol>
+<h3 id="2-m-ary">2. m-ary</h3>
+<p>$m$ 进制与 Binary 相似，后者是把每个元素看作一个bit，而前者是看作 $m$ 个bit，即一共 $M=2^m$ 个元素。Binary 可以认为是 $M=2$ 的 1-ary。</p>
+<p>工作原理：首先我们为 $i=1\ to\ 2^m−1$ 的所有 $X^i$ 计算一个查找表。然后，我们将指数 $E$ 变为以 $M$ 为底。然后，对于 $E$ 中的每个“项”，我们只需从表中查找适当的值，然后我们不加倍，而是移 $m$ 位。</p>
+<blockquote>
+<p>例如：$m=3,M=2^3=8,E=35=(43)_8,X^{(43)_8}=X^{4<em>8}\cdot X^{3}=X^{4</em>2^3}\cdot X^{3}$
+没看懂为啥是移 $m$ 位, <strong>我的理解是连续三次平方，Binary 是平方一次</strong>
+原文：Then, we work our way through the exponent E (in base M). Then, for each 'term' in E we simply look up the appropriate value from our table, and then instead of doubling we shift by m.</p>
+</blockquote>
+<p>与 Binary 相比，这意味着更多的预计算（即计算更多的 $X$ 次幂），因此需要更多的空间，但作为回报，可以进行更少的乘法。</p>
+<h3 id="3-sliding-window">3. Sliding Window</h3>
+<p>是对 m-ary 的一次优化</p>
+<blockquote>
+<p>但我连 m-ary 都没看懂...</p>
+</blockquote>
+<p>假设 $m=4,E=22=(0,0,0,1,0,1,1,0)<em>2=(1,6)</em>{2^4}$</p>
+<p>然后我们可以使用 4-ary，但如果我们“重新定位”窗口，也许可以做得更好：毕竟只有 3 个位置为了 1，并且它们都在范围为 4 的窗口内。如果我们提前知道这一点，我们就可以在该位置应用我们的查找表，因此只需要进行一次查找。</p>
+<blockquote>
+<p>$X^{22}=X^{16}\cdot X^{6}=X^{2^4}\cdot X^{6}=X^{11}\cdot X^{2}$
+这样的话，我们需要利用预先计算的 $X^{11}$，$X^{2}$</p>
+</blockquote>
+<p>所以我们首先将 $X$ 转为二进制，这样需要更多的预计算，但是如果 $X$ 足够稀疏，那么我们可以通过滑动窗口法可以节省不少时间。</p>
+<h2 id="number-25-methods-for-modular-reduction-using-%22special%22-primes-that-define-gfp-and-gf2n"><a href="https://bristolcrypto.blogspot.com/2015/03/52-things-number-25-methods-for-modular.html">Number 25: Methods for modular reduction using &quot;special&quot; primes that define $GF(p)$ and $GF(2^n)$</a></h2>
+<h3 id="1-pseudo-mersenne-prime-reduction">1. Pseudo-Mersenne Prime Reduction</h3>
+<p>modulo operation 使用量很大，但是不好操作，之前的 Montgomery representation （22 章）是一个优化方法，现在我们来看看另一个优化方法———— <strong>Psudo-Mersenne Prime reduction</strong></p>
+<p>首先看个定义：
+<strong>Definition</strong>: A prime number $p$ is called a <strong>Psudo-Mersenne Prime</strong> if $p$ can be written in the form:
+$$
+p = b^n - c
+$$
+where
+$$
+0&lt;|c|&lt;2^{\lfloor n/2\rfloor}
+$$
+一般情况下，$b=2$，$n$ 一般取一个字长（word size） $32/64$ bits</p>
+<p>从定义可以推出：
+$$
+p \equiv b^n - c \equiv 0\ mod\ p\
+b^n\equiv c\ mod\ p\
+$$</p>
+<p>因此给定一个 $k$ bits 的整数 $z$，我们令 $z'$ 为其最低（Least Significant） $n$ bits，$z''$ 为其最高（Most Significant） $k-n$ bits，即 $z=z''2^n+z'$，我们可以将 $z\ mod\ p$ 重写为：</p>
+<p>$$
+z\equiv z''2^n+z'\equiv z''c+z' mod\ p
+$$</p>
+<p>递归地利用这种方法，很容易就能把 $z$ 模到 $\mathbb{Z}_p$ 上。
+同时我们可以注意到一下几点：</p>
+<ol>
+<li>$z'$ 和 $z''$ 可以很容易地通过移位操作得到</li>
+<li>因为 $c$ 是在一个字长内选择的，所以$z''c$ 可以通过乘法高效算出</li>
+<li>每次迭代可以将 $k$ bits 缩小到 $max(k-n+w,n)$ bits，其中 $w$ 是字长</li>
+</ol>
+<p>所以一般来说，当模数是伪梅森素数时，modulo 可以非常有效地完成，因为它只需要移位、加法和乘法。</p>
+<p>然而，使用这种方法的缺点也很明显，因为这通常需要多方使用固定的参数配置（fixed setup），这可能会导致互动和安全方面的问题</p>
+<p>看过了素数域$GF(p)$，接下来我们看一下另一个有限域 $GF(2^n)$，一般是三元（trinomial）或者五元（pentanomial）的多项式（以下以三为例）</p>
+<blockquote>
+<p>我知道“元”这个说法不对</p>
+</blockquote>
+<p>这个想法和上面的素数域很像，假如我们有一个多项式
+$$
+f(x)=x^n+x^t+1
+$$
+其中 $0&lt;t&lt;n/2$，那么和上面很像，可以得到
+$$
+x^n\equiv x^t+1\ mod\ f(x)
+$$
+如果有一个大于 $n$ 度（degree）的多项式 $z(x)$，我们可以将其分解为
+$$
+z(x)=z''(x)x^n+z'(x)
+$$
+和上面很像，其中$z'(x)$ 是 $z(x)$ 的最低 $n-1$ 位，$z''(x)$ 是剩下的位。所以我们可以用上面的方案将 $z(x)$ 模到 $f(x)$ 上。
+$$
+z(x)\equiv z''(x)x^n+z'(x)\equiv z''(x)(x^t+1)+z'(x)\ mod\ f(x)\
+\equiv z''(x)x^t+z''(x)+z'(x)\ mod\ f(x)
+$$
+由于 $t$ 是一个“小”数，所以这个操作是非常高效的</p>
+<h3 id="2-another-optimization">2. Another optimization</h3>
+<p>这是多项式标准的 reduction 流程 ：<a href="https://www.doc.ic.ac.uk/~mrh/330tutor/ch04s04.html">standard reduction</a>
+现在介绍一个 $mod\ f(x)$ 优化方法：</p>
+<p>假设：
+$$
+z(x)=a_mx^m+a_{m-1}x^{m-1}+...+a_1x^1+a_0x^0\
+则\ z''(x)=a_mx^m+a_{m-1}x^{m-1}+...+a_{n+1}x^{n+1}+a_nx^n\
+f(x)=x^n+x^t+1
+$$
+假如我们想要 reduce $a_ix^i$，会出现两者情况：</p>
+<ul>
+<li>$a_i=0:$ 什么也不会发生</li>
+<li>$a_i=1:$ $x_t$ 和 $1$ 对应的两项 $a_{i-n+t},a_{i-n}$ 加1</li>
+</ul>
+<p>这个算法可以写成一个形式化的算法</p>
+<pre class="hljs"><code><div>INPUT: z(x)
+OUTPUT: z(x)
+
+1. for i=m to n by −1
+2. {
+3.      a_{i−n+t}+=ai
+4.      a_{i−n}+=ai
+5. }
+6. return z(x)
+</div></code></pre>
+<p>这个算法在软件层面进步一般，但是在硬件层面有很大的优势，因为它只需要更新 $z(x)$ 且不需要额外存储。
+另一个优点是这样的代码只需要 $0&lt;t&lt;n$ 并且可以在恒定时间内执行。</p>
+<h2 id="number-26-describe-the-naf-scalar-multiplication-algorithm"><a href="https://bristolcrypto.blogspot.com/2015/04/52-things-number-26-describe-naf-scalar.html">Number 26: Describe the NAF scalar multiplication algorithm.</a></h2>
+<p>NAF 标量乘法算法是标量乘法的增强形式，其中使用非相邻形式（<strong>Non-Adjacent Form</strong>, NAF）表示减少了算法的预期运行时间。</p>
+<p>这里的标量乘法是指在椭圆曲线密码学中的标量乘法，即 $Q=k\cdot P$，其中 $k$ 是一个整数，$P$ 是一个点。一般是倍点运算与点加运算的组合：</p>
+<blockquote>
+<p>point doubling and point addition</p>
+</blockquote>
+<p>把 $k$ 表示为二进制形式，即 $k=\sum_{i=0}^{n-1}k_i2^i$，其中 $k_i\in{0,1}$，我们可以得到 $Q$：</p>
+<pre class="hljs"><code><div>// 从右到左
+INPUT: P, k={k_{n-1},...,k_1,k_0}
+OUTPUT: Q=k*P
+    Q←∞
+    for i from 0 to t-1 do
+        if k_i=1 then Q←Q+P
+        P←2P
+return Q
+
+// 从左到右
+INPUT: P, k={k_{n-1},...,k_1,k_0}
+OUTPUT: Q=k*P
+    Q←∞
+    for i from t-1 to 0 do
+        Q←2Q
+        if k_i=1 then Q←Q+P
+return Q
+</div></code></pre>
+<p>由于一个 $k$ bits 的字符串中 1 的数量平均下来是一半，所以大概需要 $k/2$ 次点加运算与 $k$ 次倍加运算。
+$$
+\frac{k}{2}\cdot A+k\cdot D
+$$</p>
+<p>咱们现在就是要优化这个算法，使得点加运算的次数尽可能少。</p>
+<blockquote>
+<p>背景介绍：In 1951, Booth proposed a new <strong>scalar binary representation called signed binary method</strong> and later Rietweisner proved that every integer could be uniquely represented in this format . More particularly, If $P=(x,y)\in E(\mathbb{F}_q)$ then $−P=(x,x+y)$ if $\mathbb{F}_q$ is a binary field, and $−P=(x,−y)$ if $\mathbb{F}_q$ has characteristic $&gt; 3$. Thus subtraction of points on an elliptic curve is just as efficient as addition.</p>
+</blockquote>
+<p>优化方法就是使用 a particularly useful signed digit representation is the non-adjacent form (NAF)。 NAF 就是将一个 $k$ 的表示为，$k=\Sigma^{l-1}<em>{i=0}k_i\cdot 2^i$，其中 $k_i\in{0,1,-1},k</em>{l-1}\neq 0$，且<strong>没有相邻的非 0</strong>。 NAF 的长度是 $l$。</p>
+<p>NAF 有如下属性：</p>
+<ol>
+<li>$k$ 有唯一的 NAF 表示： $NAF(k)$</li>
+<li>$NAF(k)$ 在 $k$ 的任何有符号数字表示中具有最少的非零数字。</li>
+<li>$NAF(k)$ 的长度比 $k$ 的二进制长度最多多1。</li>
+<li>如果 $NAF(k)=l$，则 $\frac{2^l}{3}&lt;k&lt;\frac{2^{l+1}}{3}$</li>
+<li>所有长度为 $l$ 的 NAF 中非零数字的平均密度约为 1/3</li>
+</ol>
+<p>$NAF(k)$ 可以用如下方法得到：</p>
+<pre class="hljs"><code><div>INPUT: A positive integer k
+OUTPUT: NAF(k)
+    i←0
+    while k&gt;=1 do
+        if k is odd then
+            k_i←2−(k mod 4)
+            k←k−k_i
+        else
+            k_i←0
+            k←k/2
+            i←i+1
+return all k_i
+</div></code></pre>
+<p>C 语言实现：</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">naf_conversion</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k)</span> </span>{
+    <span class="hljs-keyword">int</span> naf[<span class="hljs-number">100</span>]; <span class="hljs-comment">// 用于存储NAF表示形式</span>
+    <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">while</span> (k != <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">if</span> (k % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) {
+            naf[i] = <span class="hljs-number">2</span> - (k % <span class="hljs-number">4</span>);
+            k = k - naf[i];
+        }
+        <span class="hljs-keyword">else</span> {
+            naf[i] = <span class="hljs-number">0</span>;
+        }
+        k = k / <span class="hljs-number">2</span>;
+        i++;
+    }
+
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"The NAF representation of the input is: "</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; j--) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d "</span>, naf[j]);
+    }
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> k;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Enter an integer to convert to NAF format: "</span>);
+    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d"</span>, &amp;k);
+
+    naf_conversion(k);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<p>重点来了! 咱们修改从左到右的标量乘法算法，使得其可以使用 NAF 表示：</p>
+<pre class="hljs"><code><div>INPUT: P, k
+OUTPUT: Q=k*P
+    Based on previous algorithm compute NAF(k)
+    Q←∞
+    for i from l-1 to 0 do
+        Q←2Q
+        if k_i=1 then Q←Q+P
+        if k_i=-1 then Q←Q-P
+return Q
+</div></code></pre>
+<p>基于 NAF 的第三个和第五个属性，NAF 标量乘法算法的预期运行时间大约为
+$$
+\frac{k}{3}\cdot A+k\cdot D
+$$</p>
+
+</body>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
+</html>

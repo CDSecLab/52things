@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rlog3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="what-did-you-learn">What did you learn？</h1>
+<blockquote>
+<p>密码学一些基本的工具</p>
+</blockquote>
+<h2 id="number-9-what-are-shannons-definitions-of-entropy-and-information"><a href="https://bristolcrypto.blogspot.com/2014/12/52-things-number-9-what-are-shannons_7.html">Number 9: What are Shannon's definitions of entropy and information?</a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Information_theory">信息论</a>是由香农在1948为了信号处理提出来的，本章主要介绍其中两个重要概念：<strong>熵</strong>（entropy）和<strong>信息</strong>（information）。</p>
+<h3 id="1-%E7%86%B5">1. 熵</h3>
+<p><a href="http://en.wikipedia.org/wiki/Entropy_%28information_theory%29">熵</a>是一种评估一个或多个变量<strong>不确定性</strong>的度量。</p>
+<blockquote>
+<p>举个例子：一个原批的发言记录大概率是“原神启动”或者“原神怎么你了”，不确定性低，熵小；而一个随机的发言记录，不确定性高，熵大。</p>
+</blockquote>
+<p>香农熵（<a href="https://en.wikipedia.org/wiki/Entropy_(information_theory)#Definition">Shannon's Entropy</a>）的定义如下：
+$$
+H = -\sum_{i} p_i \log_b p_i
+$$
+其中，$p_i$是第$i$个消息出现的概率，在计算机科学中，一般取$b=2$</p>
+<p>假如现在 4 个原批，4个正常人，那么熵为：
+$$
+H_{原批} = -\sum_{i=1}^4 1 \log_2 1 = 0\
+H_{正常人} = -\sum_{i=1}^4 \frac{1}{4} \log_2 \frac{1}{4} = 2
+$$
+这个结果也符合我们的直觉：原批的熵小，正常人的熵大。</p>
+<h3 id="2-%E4%BF%A1%E6%81%AF">2. 信息</h3>
+<p>1950年提出的<a href="https://en.wikipedia.org/wiki/Information">信息</a>定义如下：
+&quot; Information is a measure of one's freedom of choice when one selects a message.&quot;</p>
+<blockquote>
+<p>“当一个人选择一条消息时，信息是衡量一个人选择自由度的标准。”</p>
+</blockquote>
+<p>举个例子，还是4个原批4个正常人，如果给定一个回答——“甘雨的“履虫”效果是施放山泽麟迹后30秒内的第一次霜华矢，无需蓄力即可施放。”
+那我们基本可以判断这个回答来自原批，相反，如果是其它知识点，那么我们就难以判断了。
+因此我们可以说原神的包含了更多的信息（低自由度），随机回答则包含更少的信息（高自由度）。</p>
+<p>那么信息和熵的关系是啥？
+我们扩展熵的定义，给出<a href="https://en.wikipedia.org/wiki/Conditional_entropy">条件熵</a>（Conditional Entropy）的定义：
+$$
+H(Y|X) = \sum_{x\in X} p(x) H(Y|X=x)
+$$
+熵是变量的不确定性，因此，条件熵的含义实际上是：给定“线索(clue)”（条件）$X$ 时 $Y$ 的不确定性。</p>
+<p>当$X$只包含$Y$的一点信息时，给了$X$仍然很难确定$Y$，条件熵很大，即“<strong>$X$并没有显著降低$Y$的不确定性</strong>”；反之，如果$X$包含$Y$的基本信息，那么当给定$X$时$Y$的熵预计会很低。因此，条件熵可以被视为对<strong>X所拥有的Y信息</strong>的理性测量！</p>
+<p>另一个重要测量标准被称为<a href="https://en.wikipedia.org/wiki/Mutual_information">互信息</a>（Mutual Information），它是两个变量之间相互依赖性的度量。定义它的一种方法是给定条件时的熵（不确定性）损失：
+$$
+I(X;Y) = H(X) - H(X|Y) = H(Y) - H(Y|X)
+$$</p>
+<h3 id="3-%E5%AF%86%E7%A0%81%E5%AD%A6%E4%BE%8B%E5%AD%90">3. 密码学例子</h3>
+<p>信息论的概念广泛应用于密码学中。一个典型的例子是将密码过程视为一个通道（channel），明文和密文分别作为输入和输出。</p>
+<blockquote>
+<p>因此测信道分析（side channel analysis）得益于信息论的使用。</p>
+</blockquote>
+<h2 id="number-10-what-is-the-difference-between-the-rsa-and-strong-rsa-problem"><a href="https://bristolcrypto.blogspot.com/2014/12/52-things-number-10-what-is-difference.html">Number 10: What is the difference between the RSA and strong-RSA problem?</a></h2>
+<h3 id="1-rsa%E9%97%AE%E9%A2%98">1. RSA问题</h3>
+<p>$$
+N = pq, \quad \phi(N) = (p-1)(q-1)\
+e, d \quad s.t. \quad ed \equiv 1 \mod \phi(N)\
+\text{公钥} = (N, e), \quad \text{私钥} = (N, d)\
+C = m^e \mod N, \quad M = c^d \mod N
+$$
+对手可以窃听 $C$ 并且可以知道公钥 $(n,e)$，但是要计算 $M$，对手必须找到 $n$ 的因子。如果选择了合适的 $n$，这会是一个非常难解决的问题。</p>
+<h3 id="2-strong-rsa%E9%97%AE%E9%A2%98">2. Strong-RSA问题</h3>
+<p>强 RSA 假设与 RSA 假设的不同之处在于，对手可以选择（奇数）公共指数 $e\geq 3$，对手的任务是在给定密文$C = M^e \mod N$的情况下计算明文 $M$，</p>
+<blockquote>
+<p>这个假设用脚想都知道解起来肯定比一般的RSA简单，所以这个问题被称为“强RSA问题”。</p>
+</blockquote>
+<h2 id="number-11-what-are-the-dlp-cdh-and-ddh-problems"><a href="https://bristolcrypto.blogspot.com/2014/12/52-things-number-11-what-are-dlp-cdh.html">Number 11: What are the DLP, CDH and DDH problems?</a></h2>
+<p>这块内容英文教材基本看过了，这里简单总结一下。</p>
+<h3 id="1-the-discrete-logarithm-problem-dlp">1. The Discrete Logarithm Problem (DLP)</h3>
+<p>令 $G$ 是一个Abelian群，$g$ 是 $G$ 的生成元，$h$ 是 $G$ 中的一个元素。DLP 问题是找到一个整数 $x$ 使得 $g^x = h$。</p>
+<blockquote>
+<p>$x$ is called the discrete logarithm of $h$ with base $g$</p>
+</blockquote>
+<h3 id="2-the-computational-diffie-hellman-problem-cdh">2. The Computational Diffie-Hellman Problem (CDH)</h3>
+<p>给定 $G,g,g^a,g^b$，计算 $g^{ab}$。</p>
+<blockquote>
+<p>如果我们解决了DLP，那么肯定可以解决CDH。$g^a\overset{DLP}{\rightarrow}a,(g^b)^a\rightarrow g^{ab}$
+所以，DLP起码和CDH一样难。DLP is at least as hard as CDH.</p>
+</blockquote>
+<h3 id="3-the-decisional-diffie-hellman-problem-ddh">3. The Decisional Diffie-Hellman Problem (DDH)</h3>
+<p>给定 $G,g,g^a,g^b,g^c$，判断 $g^{ab} = g^c$ 是否成立。</p>
+<p>另外一种表示方法：给定 $G,g,g^a,g^b,T_x$，假设$T_0$是一个随机的群元素，$T_1 = g^{ab}$，$x$ 随机取自${0,1}$，find $x$。</p>
+<blockquote>
+<p>如果我们可以解决DDH（注意只需要判断$x$的正确率大于 $\frac{1}{2}$ 就行），这样就意味着即使算不出 $g^{ab}$，也一定会泄露 $g^{ab}$ 的一些信息。
+同样的道理，如果我们解决了CDH，那么肯定可以解决DDH。(都能算出来了还判断不了相不相等？)
+所以，CDH起码和DDH一样难。CDH is at least as hard as DDH.</p>
+</blockquote>
+<p>总结：DLP is the most hard, then CDH and then DDH.</p>
+<h2 id="number-12-what-is-the-elliptic-curve-group-law"><a href="https://bristolcrypto.blogspot.com/2014/12/52-things-number-12-what-is-elliptic.html">Number 12: What is the elliptic curve group law?</a></h2>
+<p>仍然只是简单总结一下：</p>
+<p>椭圆曲线是一个二元三次方程，但是我们一般采用 Weierstrass 形式：
+$$
+y^2 = x^3 + ax + b
+$$
+其中 $a,b \in \mathbb{F}_p$，$4a^3 + 27b^2 \neq 0$。</p>
+<p>椭圆曲线的加法用一张图足矣
+<img src="assets/Rlog3/image.png" alt="Alt text"></p>
+<h2 id="number-13-number-13-outline-the-use-and-advantages-of-projective-point-representation"><a href="https://bristolcrypto.blogspot.com/2015/01/52-things-number-13-outline-use-and.html">Number 13: Number 13: Outline the use and advantages of projective point representation.</a></h2>
+<h3 id="1-what-is-a-projective-point">1. What is a projective point?</h3>
+<p>什么是投影点？</p>
+<p>令 $c,d$ 为正整数，$K$ 是一个域（field，特征不为 2 或 3），$K^3\backslash {0,0,0}$上存在一个等价关系“$\sim$”：
+$$
+(X_1,Y_1,Z_1) \sim (X_2,Y_2,Z_2) \ if\  \exists \lambda \in K^* \quad s.t. \quad X_1 = \lambda^c X_2, Y_1 = \lambda^d Y_2, Z_1 = \lambda Z_2
+$$
+包含$(X,Y,Z)\in K^3\backslash {0,0,0}$的等价类为：
+$$
+(X:Y:Z) = {(\lambda^c X, \lambda^d Y, \lambda Z):\lambda \in K^* }
+$$
+现在我们有了投影点 $(X:Y:Z)$ 和它的表示形式 $(X,Y,Z)$。</p>
+<p>上面是通用格式，我们一般采用 Jacobian 坐标系，其中 $Z \neq 0$，在这种表示中，投影点 $(X:Y:Z)$ 对应于仿射点(affine point) $(\frac{X}{Z^2},\frac{Y}{Z^3})$。</p>
+<h3 id="2-what-are-the-advantages-to-using-projective-point-representation">2. What are the advantages to using projective point representation?</h3>
+<p>投影点表示可以提高计算效率，因为它可以减少计算中除法的次数。</p>
+<blockquote>
+<p>场反演（field inversion）是计算中最慢的操作之一。</p>
+</blockquote>
+<p>计算开销对比如下：
+<img src="assets/Rlog3/image-1.png" alt="Alt text"></p>
+<p>消除inversion算法，代价是增加了一些乘法和加法，但是这些操作在计算机上运行的代价要小得多。</p>
+<p>p.s.：<a href="(https://www.iacr.org/archive/eurocrypt2004/30270258/projective.pdf)">缺点</a>是可能在实现中泄露一些额外信息？？</p>
+<h2 id="number-14-number-14-what-is-a-cryptographic-pairing"><a href="https://bristolcrypto.blogspot.com/2015/01/52-things-number-14-what-is.html">Number 14: Number 14: What is a cryptographic pairing?</a></h2>
+<h3 id="1-pairing">1. Pairing</h3>
+<p>一个 <strong>pairing</strong> 是一个映射 $e:G_1 \times G_2 \rightarrow G_3$，其中 $G_1,G_2,G_3$ 是三个循环群，生成元分别是$g_1,g_2,g_3$，阶为 $q$，需要满足以下条件：</p>
+<ol>
+<li>双线性(<strong>bilinearity</strong>)：$\forall A,B \in G_1,C,D \in G_2 :e(A+B,C) = e(A,C)\cdot e(B,C)\ and\ e(A,C+D) = e(A,C)\cdot e(A,D)$</li>
+<li>非简并性(<strong>non-degeneracy</strong>)：$e(g_1,g_2) \neq 1$</li>
+<li>有效性(<strong>efficiency</strong>)：$e$运算可以快速完成</li>
+</ol>
+<h3 id="2-types-of-pairing">2. Types of pairing</h3>
+<ul>
+<li>Type 1: $G_1 = G_2$</li>
+<li>Type 2: $G_1 \neq G_2$，但存在从 $G_2$ 到 $G_1$ 的有效可计算同构，可将 $g_2$ 映射到 $g_1$。</li>
+<li>Type 3: $G_1 \neq G_2$，且不存在有效可计算同构。</li>
+</ul>
+<p>后两个被称为非对称pairing，第一个被称为对称pairing。</p>
+<h3 id="3-warings-and-applications">3. Warings and Applications</h3>
+<p><strong>warings:</strong>
+在Type 1 和 2 中，DDH 问题很容易被解决，只需要计算 $e(g^x,g^y)\overset{$}{=}e(g^z,g)$ 即可。</p>
+<blockquote>
+<p>这不代表Type 3是安全的</p>
+</blockquote>
+<p><strong>applications:</strong></p>
+<ul>
+<li>cryptanalysis</li>
+<li>Identity Based Encryption</li>
+<li>Attribute Based Encryption</li>
+<li>Leakage Resilient Cryptography</li>
+<li>$\cdots$</li>
+</ul>
+<blockquote>
+<p>它和椭圆曲线也联系密切，后期会讲</p>
+</blockquote>
+
+</body>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
+</html>
